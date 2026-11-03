@@ -1,5 +1,5 @@
 {
- "generated": 1793720100,
+ "generated": 1793742065,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -11,10 +11,10 @@
    "time": "10AM",
    "start_iso": "2026-11-07T10:00:00-05:00",
    "label": "Sat Nov 7, 2026 10:00 AM",
-   "from_price": 30.0,
-   "left": 2,
-   "badge": "Almost gone",
-   "sold_out": false,
+   "from_price": 28.0,
+   "left": 0,
+   "badge": "SOLD OUT",
+   "sold_out": true,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328660",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759613/chk/0f56b8e036198042e885177f8f709ba2/"
   },
