@@ -21,8 +21,8 @@ for e in sorted(evs, key=lambda e: e["start"]["unix"]):
     tts = e.get("ticket_types", [])
     left = sum(t.get("quantity") or 0 for t in tts if t["status"] == "on_sale")
     cap = left + (e.get("total_issued_tickets") or 0)
-    prices = [t["price"] for t in tts if t["status"] == "on_sale"]
-    prices += [b["price"] / sum(x["quantity"] for x in b["ticket_types"]) for b in e.get("bundles", []) if b["status"] == "ON_SALE" and b["ticket_types"]]
+    # "from" price = cheapest seat type that still has seats; fall back to any on-sale type
+    prices = [t["price"] for t in tts if t["status"] == "on_sale" and (t.get("quantity") or 0) > 0] or [t["price"] for t in tts if t["status"] == "on_sale"]
     sold = e.get("tickets_available") != "true" or left <= 0
     if sold: badge = "SOLD OUT"
     elif left <= 10 or left <= 0.15 * cap: badge = "Almost gone"
