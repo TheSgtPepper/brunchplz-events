@@ -40,3 +40,46 @@ doc = {"generated": int(time.time()), "source": "Ticket Tailor (public event inf
 path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "events.json")
 json.dump(doc, open(path, "w"), indent=1)
 print(len(out), "events ->", path)
+
+# ---- merch.json: public store products only (no stock/sales counts, no secrets). Failure never touches events.json.
+def build_merch():
+    import re
+    STORE = "https://tickets.brunchplz.com/events/brickyardonmain/store"
+    raw, url = [], "https://api.tickettailor.com/v1/products?limit=100"
+    while url:
+        d = get(url); raw += d["data"]
+        nxt = d.get("links", {}).get("next"); url = ("https://api.tickettailor.com/v1" + nxt) if nxt else None
+    LINES = {"Brunch Please LED Light Wand": ("LED Light Wand", "We sync every wand to the music. Rechargeable, yours to keep."),
+             "Feral Girl Brunch Bundle": ("Feral Girl Bundle", "FERAL hat, hand fan, scrunchie, button + hangover relief. Waiting on your table."),
+             "Hot Girl Brunch Bundle": ("Hot Girl Bundle", "Hand fan, scrunchie, button + hangover relief. Waiting on your table."),
+             "Dancing Women Tee": ("Dancing Women Tee", "Cream, pink or charcoal. Pick it up at brunch.")}
+    ORDER = ["Feral Girl Brunch Bundle", "Hot Girl Brunch Bundle", "Dancing Women Tee", "Brunch Please LED Light Wand"]
+    SIZES = {"S", "Small", "M", "Medium", "L", "Large", "XL", "XXL", "XXXL"}
+    g = {}
+    for p in raw:
+        if p.get("status") != "ON_SALE" or str(p.get("sell_in_store")) != "true": continue
+        c = re.search(r"\((Cream|Pink|Charcoal)\)", p["name"])
+        base = re.sub(r"\s*\(.*\)$", "", re.sub(r"\s*\((Cream|Pink|Charcoal)\)", "", p["name"])).strip()
+        it = g.setdefault(base, {"base": base, "price": p["price"] / 100, "img": p.get("image"), "opts": [], "colors": [], "desc": p.get("description") or "", "ok": False})
+        v = p.get("variant")
+        if c and c.group(1) not in it["colors"]: it["colors"].append(c.group(1))
+        if v and "Fan Style" in v: o = v.split(":", 1)[1].strip().strip('"')
+        else: o = v
+        if o and o not in it["opts"]: it["opts"].append(o)
+        q = p.get("quantity")
+        if q is None or q - (p.get("issued_count") or 0) > 0: it["ok"] = True
+    items = []
+    for k in ORDER + sorted(x for x in g if x not in ORDER):
+        if k not in g: continue
+        it = g[k]; name, line = LINES.get(k, (k, it["desc"][:90]))
+        opts = it["colors"] or ([] if all(o in SIZES for o in it["opts"]) else it["opts"])
+        items.append({"name": name, "price": it["price"], "line": line, "img": it["img"], "opts": opts, "avail": "on_sale" if it["ok"] else "sold_out"})
+    if not items: raise RuntimeError("no store items")
+    mp = os.path.join(os.path.dirname(os.path.abspath(path)), "merch.json")
+    json.dump({"generated": int(time.time()), "store": STORE, "items": items}, open(mp + ".tmp", "w"), indent=1)
+    os.replace(mp + ".tmp", mp)
+    print(len(items), "merch cards ->", mp)
+try:
+    build_merch()
+except Exception as ex:  # keep last good merch.json
+    print("merch skipped:", type(ex).__name__, ex)
