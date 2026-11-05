@@ -1,5 +1,5 @@
 {
- "generated": 1793843200,
+ "generated": 1793865086,
  "store": "https://tickets.brunchplz.com/events/brickyardonmain/store",
  "items": [
   {
@@ -49,6 +49,14 @@
    "price": 10.0,
    "line": "We sync every wand to the music. Rechargeable, yours to keep.",
    "img": "https://uploads.tickettailorassets.com/v1/production/userfiles/q9kpgickqps2qxjo60j3.png?_a=BAAHWXDQ",
+   "opts": [],
+   "avail": "on_sale"
+  },
+  {
+   "name": "\ud83c\udfa4 BRUNCH, PLEASE! Gift Card",
+   "price": 35.0,
+   "line": "They are finally here!! Our Brunch, Please & The Chosen One Gift Cards! Perfect for birthd",
+   "img": "https://uploads.tickettailorassets.com/v1/production/userfiles/xjxhltjnbhytm42g9qgu.png?_a=BAAHWXDQ",
    "opts": [],
    "avail": "on_sale"
   }
