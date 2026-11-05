@@ -54,7 +54,14 @@ def build_merch():
              "Hot Girl Brunch Bundle": ("Hot Girl Bundle", "Hand fan, scrunchie, button + hangover relief. Waiting on your table."),
              "Dancing Women Tee": ("Dancing Women Tee", "Cream, pink or charcoal. Pick it up at brunch.")}
     ORDER = ["Feral Girl Brunch Bundle", "Hot Girl Brunch Bundle", "Dancing Women Tee", "Brunch Please LED Light Wand"]
-    SIZES = {"S", "Small", "M", "Medium", "L", "Large", "XL", "XXL", "XXXL"}
+    SIZE_ORDER = ["S", "Small", "M", "Medium", "L", "Large", "XL", "XXL", "XXXL"]
+    SIZES = set(SIZE_ORDER)
+    def sort_sizes(vals):
+        rank = {s: i for i, s in enumerate(SIZE_ORDER)}
+        sizes = [v for v in vals if v in rank]
+        other = [v for v in vals if v not in rank]
+        sizes.sort(key=lambda v: rank[v])
+        return sizes + other
     g = {}
     for p in raw:
         if p.get("status") != "ON_SALE" or str(p.get("sell_in_store")) != "true": continue
@@ -72,8 +79,13 @@ def build_merch():
     for k in ORDER + sorted(x for x in g if x not in ORDER):
         if k not in g: continue
         it = g[k]; name, line = LINES.get(k, (k, it["desc"][:90]))
-        opts = it["colors"] or ([] if all(o in SIZES for o in it["opts"]) else it["opts"])
-        items.append({"name": name, "price": it["price"], "line": line, "img": it["img"], "opts": opts, "avail": "on_sale" if it["ok"] else "sold_out"})
+        sizes = sort_sizes([o for o in it["opts"] if o in SIZES])
+        non_size = [o for o in it["opts"] if o not in SIZES]
+        opts = it["colors"] or (sizes if sizes else non_size)
+        row = {"name": name, "price": it["price"], "line": line, "img": it["img"], "opts": opts, "avail": "on_sale" if it["ok"] else "sold_out"}
+        if sizes:
+            row["sizes"] = sizes
+        items.append(row)
     if not items: raise RuntimeError("no store items")
     mp = os.path.join(os.path.dirname(os.path.abspath(path)), "merch.json")
     json.dump({"generated": int(time.time()), "store": STORE, "items": items}, open(mp + ".tmp", "w"), indent=1)

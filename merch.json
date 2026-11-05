@@ -1,5 +1,5 @@
 {
- "generated": 1793837903,
+ "generated": 1793843105,
  "store": "https://tickets.brunchplz.com/events/brickyardonmain/store",
  "items": [
   {
@@ -34,7 +34,15 @@
     "Pink",
     "Charcoal"
    ],
-   "avail": "on_sale"
+   "avail": "on_sale",
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "XXXL"
+   ]
   },
   {
    "name": "LED Light Wand",
