@@ -1,5 +1,5 @@
 {
- "generated": 1793918328,
+ "generated": 1793935333,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -140,8 +140,8 @@
    "start_iso": "2026-12-05T10:00:00-05:00",
    "label": "Sat Dec 5, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 30,
-   "badge": "30 left",
+   "left": 28,
+   "badge": "28 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2339567",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8798003/chk/914501bbf23999e42c5265fba1648588/"
