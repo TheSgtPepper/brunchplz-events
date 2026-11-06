@@ -1,5 +1,5 @@
 {
- "generated": 1793966349,
+ "generated": 1793992574,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -545,6 +545,38 @@
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2471799",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/9267221/chk/db72ed5dc6a16239b6633f1465b53460/"
+  },
+  {
+   "id": "ev_9410896",
+   "name": "BRUNCH, PLEASE! Humane Society Fundraiser",
+   "theme": "Humane Society Fundraiser",
+   "date": "2027-03-13",
+   "day": "Sat",
+   "time": "10AM",
+   "start_iso": "2027-03-13T10:00:00-05:00",
+   "label": "Sat Mar 13, 2027 10:00 AM",
+   "from_price": 38.0,
+   "left": 47,
+   "badge": "On sale",
+   "sold_out": false,
+   "url": "https://tickets.brunchplz.com/events/brickyardonmain/2510977",
+   "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/9410896/chk/17ae47c755c94bf894b3601a7cda56e1/"
+  },
+  {
+   "id": "ev_9410897",
+   "name": "BRUNCH, PLEASE! Dog Pound Fundraiser",
+   "theme": "Dog Pound Fundraiser",
+   "date": "2027-05-01",
+   "day": "Sat",
+   "time": "10AM",
+   "start_iso": "2027-05-01T10:00:00-04:00",
+   "label": "Sat May 1, 2027 10:00 AM",
+   "from_price": 43.0,
+   "left": 47,
+   "badge": "On sale",
+   "sold_out": false,
+   "url": "https://tickets.brunchplz.com/events/brickyardonmain/2510978",
+   "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/9410897/chk/340e14a84a7deff8e9b08c516674ff6b/"
   }
  ]
 }
