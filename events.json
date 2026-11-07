@@ -1,5 +1,5 @@
 {
- "generated": 1794009825,
+ "generated": 1794030522,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -188,8 +188,8 @@
    "start_iso": "2026-12-13T10:00:00-05:00",
    "label": "Sun Dec 13, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 30,
-   "badge": "30 left",
+   "left": 23,
+   "badge": "23 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2339570",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8798006/chk/1f7012a9c30b0f56d862d35add3402d0/"
@@ -556,7 +556,7 @@
    "start_iso": "2027-03-13T10:00:00-05:00",
    "label": "Sat Mar 13, 2027 10:00 AM",
    "from_price": 38.0,
-   "left": 47,
+   "left": 43,
    "badge": "On sale",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2510977",
