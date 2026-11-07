@@ -1,23 +1,7 @@
 {
- "generated": 1794055881,
+ "generated": 1794074371,
  "source": "Ticket Tailor (public event info only)",
  "events": [
-  {
-   "id": "ev_8759613",
-   "name": "BRUNCH, PLEASE!",
-   "theme": "",
-   "date": "2026-11-07",
-   "day": "Sat",
-   "time": "10AM",
-   "start_iso": "2026-11-07T10:00:00-05:00",
-   "label": "Sat Nov 7, 2026 10:00 AM",
-   "from_price": 28.0,
-   "left": 0,
-   "badge": "SOLD OUT",
-   "sold_out": true,
-   "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328660",
-   "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759613/chk/0f56b8e036198042e885177f8f709ba2/"
-  },
   {
    "id": "ev_8759614",
    "name": "BRUNCH, PLEASE!",
