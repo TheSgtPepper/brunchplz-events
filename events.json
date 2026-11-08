@@ -1,5 +1,5 @@
 {
- "generated": 1794087767,
+ "generated": 1794100614,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -60,9 +60,9 @@
    "start_iso": "2026-11-21T10:00:00-05:00",
    "label": "Sat Nov 21, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 1,
-   "badge": "Almost gone",
-   "sold_out": false,
+   "left": 0,
+   "badge": "SOLD OUT",
+   "sold_out": true,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328664",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759617/chk/796b94288f2468cb1cb376fca859ba1a/"
   },
@@ -76,7 +76,7 @@
    "start_iso": "2026-11-22T10:00:00-05:00",
    "label": "Sun Nov 22, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 7,
+   "left": 6,
    "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328665",
