@@ -1,5 +1,5 @@
 {
- "generated": 1794249659,
+ "generated": 1794275934,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -92,7 +92,7 @@
    "start_iso": "2026-11-29T10:00:00-05:00",
    "label": "Sun Nov 29, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 19,
+   "left": 15,
    "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328667",
@@ -652,7 +652,7 @@
    "start_iso": "2027-05-01T10:00:00-04:00",
    "label": "Sat May 1, 2027 10:00 AM",
    "from_price": 43.0,
-   "left": 47,
+   "left": 45,
    "badge": "On sale",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2510978",
