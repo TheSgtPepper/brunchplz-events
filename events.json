@@ -1,5 +1,5 @@
 {
- "generated": 1794352200,
+ "generated": 1794376590,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -220,8 +220,8 @@
    "start_iso": "2026-12-27T10:00:00-05:00",
    "label": "Sun Dec 27, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 36,
-   "badge": "36 left",
+   "left": 34,
+   "badge": "34 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328669",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759622/chk/a720f21186f9be66fb47b3b0e97a6466/"
