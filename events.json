@@ -1,5 +1,5 @@
 {
- "generated": 1794376590,
+ "generated": 1794405734,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -396,7 +396,7 @@
    "start_iso": "2027-02-06T10:00:00-05:00",
    "label": "Sat Feb 6, 2027 10:00 AM",
    "from_price": 28.0,
-   "left": 45,
+   "left": 41,
    "badge": "On sale",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2471792",
