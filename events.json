@@ -1,5 +1,5 @@
 {
- "generated": 1794675489,
+ "generated": 1794691255,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -156,8 +156,8 @@
    "start_iso": "2026-12-19T10:00:00-05:00",
    "label": "Sat Dec 19, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 25,
-   "badge": "25 left",
+   "left": 20,
+   "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2339571",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8798007/chk/a758fece77de2f44194d863ee878fcc0/"
