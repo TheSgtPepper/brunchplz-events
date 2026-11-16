@@ -1,5 +1,5 @@
 {
- "generated": 1794821215,
+ "generated": 1794860295,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -60,7 +60,7 @@
    "start_iso": "2026-11-29T10:00:00-05:00",
    "label": "Sun Nov 29, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 14,
+   "left": 11,
    "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328667",
