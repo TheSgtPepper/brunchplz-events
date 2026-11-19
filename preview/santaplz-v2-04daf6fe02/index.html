@@ -18,7 +18,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 /* hide the empty Squarespace sections left after the code section (blank space under the footer) */
 #page .page-section:not(:has(#sp)), #footer-sections { display: none !important; }
 </style></head><body><header id="header" class="header"></header><main><section class="page-section"><div class="content-wrapper"><div class="sqs-block code-block"><div class="sqs-block-content"><!-- SANTA, PLEASE! v2 funnel for Squarespace (BASIC plan: HTML + CSS only). Paste this whole file into ONE Code block. -->
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@400;500;600;700;800&family=Gochi+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@400;500;600;700;800&family=Gochi+Hand&family=Alfa+Slab+One&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
 <style>
 
 /* ===== Squarespace hardening: keep the page's look inside Squarespace, and keep it from touching Squarespace's header/footer ===== */
@@ -1106,6 +1106,65 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   #sp .kband { --cw:max(4.4px, min(calc((100vw - 24px) / 44), calc((100vw - 24px) / var(--cols)))); overflow:hidden; }
 }
 
+/* r4: trolley story + steps restyled as ticket-stub cards on green knit (Alex's reference) */
+#sp .tstory { background:#1d5a3f url("https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/knit_tile_green.webp") repeat; background-size:300px auto; padding-bottom:calc(clamp(40px,6vw,64px) + 22px); }
+#sp .tk { --n:16px; position:relative; color:var(--ink); background:#b3121f; padding:7px; border-radius:4px; margin:0;
+  -webkit-mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000) top left, radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000) top right, radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000) bottom left, radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000) bottom right;
+  -webkit-mask-size:51% 51%; -webkit-mask-repeat:no-repeat;
+  mask:radial-gradient(circle var(--n) at 0 0,#0000 98%,#000) top left/51% 51% no-repeat, radial-gradient(circle var(--n) at 100% 0,#0000 98%,#000) top right/51% 51% no-repeat, radial-gradient(circle var(--n) at 0 100%,#0000 98%,#000) bottom left/51% 51% no-repeat, radial-gradient(circle var(--n) at 100% 100%,#0000 98%,#000) bottom right/51% 51% no-repeat;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.28)); }
+#sp .tk::before { content:""; position:absolute; inset:5px; background:radial-gradient(120% 90% at 50% 40%,#fbf3e2 0%,#f4e6c8 70%,#ead6ae 100%);
+  -webkit-mask:inherit; mask:inherit; border-radius:3px; }
+#sp .tk { --n2:12px; }
+#sp .tk::before { -webkit-mask:radial-gradient(circle 12px at 0 0,#0000 98%,#000) top left/51% 51% no-repeat, radial-gradient(circle 12px at 100% 0,#0000 98%,#000) top right/51% 51% no-repeat, radial-gradient(circle 12px at 0 100%,#0000 98%,#000) bottom left/51% 51% no-repeat, radial-gradient(circle 12px at 100% 100%,#0000 98%,#000) bottom right/51% 51% no-repeat;
+  mask:radial-gradient(circle 12px at 0 0,#0000 98%,#000) top left/51% 51% no-repeat, radial-gradient(circle 12px at 100% 0,#0000 98%,#000) top right/51% 51% no-repeat, radial-gradient(circle 12px at 0 100%,#0000 98%,#000) bottom left/51% 51% no-repeat, radial-gradient(circle 12px at 100% 100%,#0000 98%,#000) bottom right/51% 51% no-repeat; }
+#sp .tk::after { content:""; position:absolute; inset:14px; border:2px dashed rgba(179,18,31,.75); border-radius:10px; pointer-events:none; }
+#sp .tk > * { position:relative; z-index:1; }
+#sp .ts-top { display:grid; grid-template-columns:1.25fr 1fr; gap:22px; align-items:stretch; }
+#sp .tk-uh, #sp .tk-hist { padding:30px 34px 28px; }
+#sp .tk-h, #sp .st-h { text-transform:none; }
+#sp .st-h { text-transform:uppercase !important; }
+#sp .tk-h { margin:0 0 10px; font-family:"Playfair Display", Georgia, serif; font-style:italic; font-weight:900; color:var(--clay); font-size:clamp(24px,2.7vw,34px); line-height:1.05; letter-spacing:-.005em; }
+#sp .tk-h.sm { font-size:clamp(20px,2vw,25px); color:var(--sage-dark); }
+#sp .tk p { margin:0 0 12px; font-size:15.5px; line-height:1.5; color:#2a2620; font-weight:500; }
+#sp .ribbon { margin:16px -6px 0 !important; }
+#sp .ribbon span { display:block; background:linear-gradient(#c4202d,#a1121d); color:#fff4dc; font-family:"Alfa Slab One", Georgia, serif; font-weight:400; text-transform:uppercase; font-size:clamp(13px,1.35vw,16px); letter-spacing:.03em; line-height:1.25; text-align:center; padding:11px 30px; clip-path:polygon(0 0,100% 0,calc(100% - 14px) 50%,100% 100%,0 100%,14px 50%); box-shadow:0 3px 0 rgba(0,0,0,.15); }
+#sp .ribbon span::before, #sp .ribbon span::after { content:"✶"; color:#f0c75e; margin:0 10px; }
+#sp .tk-hist { display:flex; gap:18px; align-items:center; }
+#sp .tk-hist .tr-ill { width:150px; height:auto; flex:none; }
+#sp .tk-hist p { font-size:14.5px; }
+#sp .ts-steps { list-style:none; margin:30px 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+#sp .st-w { position:relative; padding-top:22px; }
+#sp .st-w .tk-st { height:100%; }
+#sp .tk-st { padding:40px 22px 26px; text-align:center; }
+#sp .tk-st img { display:block; width:auto; height:110px; max-width:85%; margin:0 auto 12px; filter:drop-shadow(0 4px 4px rgba(60,30,10,.18)); }
+#sp .bd { position:absolute !important; z-index:3; top:0; left:50%; transform:translateX(-50%); width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 45%,#c41d2a 0 55%,#8d0f18 62%,#f3cf6a 64%,#c99a32 78%,#f5d77a 90%,#a8781f 100%); color:#fff4dc; font-family:"Alfa Slab One", Georgia, serif; font-size:23px; box-shadow:0 3px 5px rgba(0,0,0,.3); }
+#sp .st-h { margin:0 0 10px; font-family:"Alfa Slab One", Georgia, serif; font-weight:400; text-transform:uppercase; color:#1f4d3a; font-size:clamp(19px,1.9vw,24px); line-height:1.05; letter-spacing:.01em; }
+#sp .st-c { display:inline-block; margin:0 !important; background:linear-gradient(#f1d99a,#e6c579); color:#3a2a12 !important; font-family:Georgia, serif; font-size:15.5px !important; font-weight:600 !important; padding:6px 18px; clip-path:polygon(0 0,100% 0,calc(100% - 8px) 50%,100% 100%,0 100%,8px 50%); }
+#sp .plank { margin:36px calc(-1 * clamp(16px, 4vw, 40px)) 0; height:115px; background:url("https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/wood_snow.webp") repeat-x center top; background-size:auto 115px; display:flex; align-items:flex-end; justify-content:center; padding-bottom:22px; position:relative; }
+#sp .plank img { width:300px; height:auto; display:block; filter:drop-shadow(0 3px 3px rgba(0,0,0,.45)); }
+#sp .tstory .cta-row { margin-top:26px; }
+@media (max-width:760px){
+  #sp .ts-top { grid-template-columns:1fr; gap:16px; }
+  #sp .tk-uh, #sp .tk-hist { padding:26px 24px 24px; }
+  #sp .tk-h { font-size:25px; }
+  #sp .ribbon span { padding:10px 22px; font-size:12.5px; }
+  #sp .ribbon span::before, #sp .ribbon span::after { margin:0 6px; }
+  #sp .tk-hist { gap:12px; }
+  #sp .tk-hist .tr-ill { width:104px; }
+  #sp .ts-steps { grid-template-columns:1fr; gap:16px; margin-top:20px; }
+  #sp .tk-st { display:grid; grid-template-columns:118px 1fr; align-items:center; text-align:left; gap:10px; padding:24px 20px 22px 22px; }
+  #sp .tk-st img { height:auto; width:112px; max-width:none; margin:0; }
+  #sp .st-w { padding-top:0; padding-left:14px; }
+  #sp .bd { top:50%; left:0; transform:translateY(-50%); width:42px; height:42px; font-size:19px; }
+  #sp .tk-st { padding-left:38px; grid-template-columns:100px 1fr; }
+  #sp .tk-st img { width:98px; }
+  #sp .st-h { font-size:18px; margin-bottom:8px; }
+  #sp .st-c { font-size:14px !important; padding:5px 14px; }
+  #sp .plank { height:96px; background-size:auto 96px; padding-bottom:18px; margin-top:24px; }
+  #sp .plank img { width:230px; }
+}
+
 /* sticky Get Tickets bar (mobile only, CSS only) */
 #sp .stick { display:none; }
 @media (max-width:760px){
@@ -1226,24 +1285,28 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   </aside>
 
   <div class="kband" style="--c:73;--r:7;--o:1;--cm:73;--rm:7;--om:1"><h2 class="sr">The Mission</h2><picture aria-hidden="true"><img class="kb" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/kb_mission.webp" alt="" loading="lazy" decoding="async"></picture></div>
-  <section class="section happens knit-cream hem" id="mission" style="z-index:8">
+  <section class="section tstory hem" id="mission" style="z-index:8">
     <div class="wrap">
-      <div class="story">
-        <div class="label">
-          <p class="mc-h">Uh-oh! Santa’s trolley lost power.</p>
+      <div class="ts-top">
+        <article class="tk tk-uh">
+          <h3 class="tk-h">Uh-oh! Santa’s trolley lost power.</h3>
           <p>He was on his way to our trolley station when the lights went out. Our elves have a plan: with enough Christmas spirit, they can get it running again.</p>
-          <p><b>Your mission: help the elves save Christmas.</b></p>
-        </div>
-        <div class="label"><p class="hist"><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 2v8M24 2h16"/><rect x="6" y="10" width="52" height="26" rx="5"/><path d="M6 18h52"/><rect x="12" y="21" width="9" height="8" rx="1"/><rect x="27.5" y="21" width="9" height="8" rx="1"/><rect x="43" y="21" width="9" height="8" rx="1"/><circle cx="18" cy="40" r="4"/><circle cx="46" cy="40" r="4"/><path d="M2 46h60"/></svg><span><b>A real 1928 trolley station.</b> Passenger &amp; Rail Co. was a stop on the CD&amp;M Electric Railway. The trolleys are long gone; this Christmas, the elves set up shop here.</span></p></div>
+          <p class="ribbon"><span>Your mission: help the elves save Christmas.</span></p>
+        </article>
+        <article class="tk tk-hist">
+          <img class="tr-ill" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/trolley_ill.webp" width="216" height="219" alt="Illustration of a green electric trolley with a Christmas wreath" loading="lazy" decoding="async">
+          <div><h3 class="tk-h sm">A real 1928 trolley station.</h3>
+          <p>Passenger &amp; Rail Co. was a stop on the CD&amp;M Electric Railway. The trolleys are long gone; this Christmas, the elves set up shop here.</p></div>
+        </article>
       </div>
-      <ol class="steps" aria-label="How to save Christmas, in three steps">
-        <li><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/snow_pjs.webp" width="300" height="248" alt="" loading="lazy" decoding="async"><p class="elf">WEER YUR PJs<small>cozy = xtra speerit</small></p></li>
-        <li><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/snow_cocoa.webp" width="300" height="247" alt="" loading="lazy" decoding="async"><p class="elf">HOT COCO + COOKEES<small>then DANSE PARTY!!!</small></p></li>
-        <li><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/snow_hat.webp" width="300" height="247" alt="" loading="lazy" decoding="async"><p class="elf">MEET SANTA CLaWS<small>he nos yur name!!</small></p></li>
+      <ol class="ts-steps" aria-label="How to save Christmas, in three steps">
+        <li class="st-w"><span class="bd" aria-hidden="true">1</span><div class="tk tk-st"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ic_pjs.webp" width="223" height="145" alt="" loading="lazy" decoding="async"><div><h3 class="st-h">Wear your PJs</h3><p class="st-c">Cozy = extra spirit!</p></div></div></li>
+        <li class="st-w"><span class="bd" aria-hidden="true">2</span><div class="tk tk-st"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ic_cocoa.webp" width="212" height="147" alt="" loading="lazy" decoding="async"><div><h3 class="st-h">Hot cocoa + cookies</h3><p class="st-c">Then dance party!!!</p></div></div></li>
+        <li class="st-w"><span class="bd" aria-hidden="true">3</span><div class="tk tk-st"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ic_hat.webp" width="235" height="145" alt="" loading="lazy" decoding="async"><div><h3 class="st-h">Meet Santa Claus</h3><p class="st-c">He knows your name!</p></div></div></li>
       </ol>
-      <p class="elfsig">(ritten by the elfs)</p>
-      <div class="cta-row" style="justify-content:center"><a class="pill go" href="#dates">Get tickets</a></div>
     </div>
+    <div class="plank"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/plaque_elves.webp" width="370" height="65" alt="Written by the elves" loading="lazy" decoding="async"></div>
+    <div class="wrap"><div class="cta-row" style="justify-content:center"><a class="pill go" href="#dates">Get tickets</a></div></div>
   </section>
 
   <div class="kband green" style="--c:113;--r:7;--o:1;--cm:65;--rm:16;--om:1"><h2 class="sr">Santa’s Gift Drive</h2><picture aria-hidden="true"><source media="(max-width: 700px)" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/kb_gift_m.webp"><img class="kb" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/kb_gift.webp" alt="" loading="lazy" decoding="async"></picture></div>
