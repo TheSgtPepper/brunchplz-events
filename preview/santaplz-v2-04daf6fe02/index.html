@@ -1261,11 +1261,17 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   #sp .booth-r .bts { gap:10px; }
   #sp a.bt, #sp .bt { flex:1; min-width:0; min-height:58px; }
 }
+
+#sp .wordmark.logo { display:inline-flex; align-items:center; line-height:0; flex:0 0 auto; }
+#sp .wordmark.logo img { height:48px; width:auto; max-width:none; display:block; }
+#sp .foot2 .flogo { display:inline-block; background:#f6efe6; border-radius:18px; padding:12px 18px; margin:0 auto 14px; line-height:0; box-shadow:0 6px 18px rgba(0,0,0,.28); }
+#sp .foot2 .flogo img { width:240px; max-width:64vw; height:auto; display:block; }
+@media (max-width:600px) { #sp .wordmark.logo img { height:38px; } }
 </style>
 
 <div id="sp">
   <header class="nav">
-    <a class="wordmark" href="#top">Santa, <span>Please!</span></a>
+    <a class="wordmark logo" href="#top"><picture><source type="image/webp" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_nav.webp 1x, https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_nav_2x.webp 2x"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_nav.png" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_nav_2x.png 2x" alt="SANTA, PLEASE!" width="140" height="48"></picture></a>
     <nav class="links" aria-label="Primary"><a href="#mission">The mission</a><a href="#dates">Dates</a><a href="#faq">FAQ</a></nav>
     <a class="pill go" href="#dates">Get tickets</a>
   </header>
@@ -1401,7 +1407,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   </section>
 
   <footer class="foot2">
-    <div class="d">Santa, Please!</div>
+    <div class="flogo"><picture><source type="image/webp" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_foot.webp 1x, https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_foot_2x.webp 2x"><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_foot.png" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/logo_santaplz_foot_2x.png 2x" alt="SANTA, PLEASE!" width="240" height="82" loading="lazy"></picture></div>
     <p>A mission to save Christmas in your PJs at Passenger &amp; Rail Co., Marion, Ohio.</p>
     <p>Housed in a historic 1928 CD&amp;M Electric Railway trolley station.</p>
     <p><a href="mailto:hello@brunchplz.com">hello@brunchplz.com</a></p>
