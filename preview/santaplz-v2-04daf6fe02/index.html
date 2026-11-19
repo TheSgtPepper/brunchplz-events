@@ -1154,6 +1154,21 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   #sp .gets h3 { font-size:13.5px; }
 }
 
+/* r8: AI placeholder photos, gift line, FAQ TBD markers */
+#sp .wh-grid { display:grid; grid-template-columns:1fr 1.05fr; gap:24px; align-items:start; margin-bottom:34px; }
+#sp .wh-grid .seq { margin:0; }
+#sp .ph-fig { margin:0; }
+#sp .ph-fig img { display:block; width:100%; height:auto; border-radius:14px; box-shadow:0 5px 0 rgba(60,40,20,.10), 0 14px 28px rgba(40,24,10,.16); outline:2px dashed rgba(31,77,58,.30); outline-offset:-8px; }
+#sp .ph-fig figcaption { margin-top:8px; font-size:14px; color:var(--muted); text-align:center; }
+#sp .ph-a { position:sticky; top:84px; }
+#sp .ph-row { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:22px 0 0; }
+#sp .giftline { margin:22px 0 0; font-size:15.5px; color:var(--ink); text-align:center; }
+#sp .giftline a { color:var(--clay) !important; font-weight:800; text-decoration:underline !important; text-underline-offset:3px; }
+#sp summary .tbd { font-family:Inter,system-ui,sans-serif; font-size:11px; letter-spacing:.04em; margin-left:6px; vertical-align:2px; }
+#sp .tbd { display:inline-block; background:#fff1a8; color:#5a4300; font-weight:800; padding:1px 6px; border-radius:4px; outline:1px dashed #b38f00; }
+@media (max-width:900px){ #sp .wh-grid { grid-template-columns:1fr; gap:16px; } #sp .ph-a { position:static; } }
+@media (max-width:760px){ #sp .ph-row { grid-template-columns:1fr; gap:14px; } #sp .giftline { font-size:14.5px; } }
+
 /* sticky Get Tickets bar (mobile only, CSS only) */
 #sp .stick { display:none; }
 @media (max-width:760px){
@@ -1215,7 +1230,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
       <img class="knit-title" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/knit_title.webp" width="1154" height="505" alt="" aria-hidden="true" fetchpriority="high">
       <div class="tag">
         <p class="hl">This Christmas, the kids save the day.</p>
-        <p class="pitch">An interactive Christmas adventure with mischievous elves, a magical Spirit-O-Meter, music, cocoa, and a personalized visit from Santa.</p>
+        <p class="pitch">An interactive Christmas adventure with Santa’s elves, a magical Spirit-O-Meter, music, cocoa, and a personalized visit from Santa.</p>
         <p class="when"><span class="nw">Sundays, Nov 29 – Dec 20</span> · <span class="nw">3 PM &amp; 5 PM · 90 min</span></p>
         <p class="price"><span class="nw"><b>$25</b> per person · under 2 free</span> · <span class="nw">family photo included</span></p>
         <div class="ctas"><a class="pill go" href="#dates">Choose your date</a></div>
@@ -1232,6 +1247,8 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
     <div class="wrap">
       <h2>What happens</h2>
       <p class="lede">About 90 minutes of Christmas magic, in pajamas.</p>
+      <div class="wh-grid">
+      <figure class="ph-fig ph-a"><!-- AI PLACEHOLDER: ai_station_santa (swap for a real photo before publishing) --><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ai_station_santa_800.webp" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ai_station_santa_800.webp 800w, https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ai_station_santa_1280.webp 1280w" sizes="(max-width:760px) 100vw, 560px" width="1280" height="720" alt="Kids in pajamas cheering as Santa arrives in a Christmas-decorated brick trolley station" loading="lazy" decoding="async"></figure>
       <ol class="seq">
         <li><b>Check in at the station.</b> We check your tickets at the door, and the elves are waiting.</li>
         <li><b>Join the elves’ mission.</b> Santa’s trolley lost power, and the elves need the kids’ help to get it running again.</li>
@@ -1239,6 +1256,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
         <li><b>Fill the Spirit-O-Meter.</b> Every bit of Christmas spirit lights more bulbs, until Santa’s trolley gets its power back.</li>
         <li><b>Santa arrives.</b> He calls every kid’s name off his scroll, sits down to chat with each one, and poses for your family photo.</li>
       </ol>
+      </div>
       <h2 class="h2b">What’s included</h2>
       <ul class="gets">
         <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 8h26v28a5 5 0 0 1-5 5H10"/><path d="M12 8a4 4 0 0 0-4 4v4h4"/><path d="M10 41a5 5 0 0 0 5-5V8"/><path d="M19 17h12M19 23h12M19 29h8"/></svg><h3>A mission to save Christmas</h3><p>The kids are the heroes.</p></li>
@@ -1246,6 +1264,10 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
         <li><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="14" width="38" height="26" rx="5"/><path d="M17 14l3-5h8l3 5"/><circle cx="24" cy="27" r="7.5"/><circle cx="36" cy="20" r="1.2"/></svg><h3>A professional family photo with Santa</h3><p>One for every family.</p></li>
         <li><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 18h26v12a11 11 0 0 1-11 11h-4A11 11 0 0 1 9 30z"/><path d="M35 22h3a5 5 0 0 1 0 10h-3.5"/><path d="M17 6c-2 3 2 4 0 7M24 5c-2 3 2 4 0 7"/><circle cx="40" cy="9" r="4"/><path d="M38 7.5l4 3"/></svg><h3>Cocoa, a cookie &amp; a sleigh bell</h3><p>A keepsake bell for each child.</p></li>
       </ul>
+      <div class="ph-row">
+        <figure class="ph-fig"><!-- AI PLACEHOLDER: ai_family_santa (swap for a real Santa photo before publishing) --><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ai_family_santa_800.webp" width="800" height="600" alt="A family in matching plaid pajamas posing with Santa in a red velvet chair" loading="lazy" decoding="async"><figcaption>Every family gets a professional photo with Santa.</figcaption></figure>
+        <figure class="ph-fig"><!-- AI PLACEHOLDER: ai_cocoa_kids (swap for a real photo before publishing) --><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/ai_cocoa_kids_800.webp" width="800" height="600" alt="Two kids in pajamas laughing over mugs of hot cocoa and a plate of cookies" loading="lazy" decoding="async"><figcaption>Cocoa, a cookie and a sleigh bell for every kid.</figcaption></figure>
+      </div>
       <div class="cta-row"><a class="pill go" href="#dates">Pick a Sunday</a><p class="aside">$25 per person, under 2 free · only 80 tickets per session</p></div>
     </div>
   </section>
@@ -1261,6 +1283,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
       </div>
       <div class="grid"><div class="month">November 2026</div><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486263/chk/97099aa31a48703edecff59386bf85be/" target="_blank" rel="noopener" aria-label="Sun Nov 29, 3:00 PM - 4:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Nov 29</span></span><span class="dc-t">3–4:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486264/chk/7db5a8ae340107e8e1ed394c45bb4345/" target="_blank" rel="noopener" aria-label="Sun Nov 29, 5:00 PM - 6:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Nov 29</span></span><span class="dc-t">5–6:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><div class="month">December 2026</div><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486265/chk/375739ff8d6689b98bb765352e80364e/" target="_blank" rel="noopener" aria-label="Sun Dec 6, 3:00 PM - 4:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 6</span></span><span class="dc-t">3–4:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486266/chk/b31f7c939c40e42e168a29ea81fdb68b/" target="_blank" rel="noopener" aria-label="Sun Dec 6, 5:00 PM - 6:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 6</span></span><span class="dc-t">5–6:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486267/chk/36b084fd858b83221be6c92d4c2ae784/" target="_blank" rel="noopener" aria-label="Sun Dec 13, 3:00 PM - 4:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 13</span></span><span class="dc-t">3–4:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486268/chk/13d9156dcb1793497cabb1e00a4dd06c/" target="_blank" rel="noopener" aria-label="Sun Dec 13, 5:00 PM - 6:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 13</span></span><span class="dc-t">5–6:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486269/chk/115450f4bd569f3c97042eb76fdd7a03/" target="_blank" rel="noopener" aria-label="Sun Dec 20, 3:00 PM - 4:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 20</span></span><span class="dc-t">3–4:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a><a class="dcard" href="https://www.tickettailor.com/checkout/view-event/id/9486270/chk/befc9c9b5a726f012de7aae224d1a8c4/" target="_blank" rel="noopener" aria-label="Sun Dec 20, 5:00 PM - 6:30 PM, $25 per person"><span class="dc-d"><span class="dow">Sunday</span><span class="dt">Dec 20</span></span><span class="dc-t">5–6:30 PM</span><span class="dc-p"><b>$25</b> per person</span><span class="dc-go" aria-hidden="true">Tickets →</span></a></div>
       <div class="cta-row"><a class="pill" href="https://buytickets.at/passengerrailchristmasbar/2538609" target="_blank" rel="noopener">See all dates on Ticket Tailor</a></div>
+      <p class="giftline">🎁 <b>Grandparents, aunts &amp; uncles:</b> give it as a gift. <a href="#dates">Pick a date</a> and send them the tickets.</p>
     </div>
   </section>
 
@@ -1319,8 +1342,13 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
         <details><summary>What should we wear?</summary><p>Pajamas are the vibe, but not required. Please, not the kind with the button-up booty flap. I’m looking at you.</p></details>
         <details><summary>How will Santa know my kid’s name?</summary><p>Checkout asks a few optional questions for each ticket: your child’s first name, something they’re proud of this year, and what they’re hoping for. Answers stay private, on Santa’s cheat sheet only.</p></details>
         <details><summary>Where is it?</summary><p>Passenger &amp; Rail Co., at the rear of Bucci’s Italian Scratch Kitchen in Marion, Ohio.</p></details>
-        <details><summary>Are tickets refundable?</summary><p>All sales are final, but you can transfer your tickets to a friend. Just have them email <a href="mailto:hello@brunchplz.com">hello@brunchplz.com</a> with their children’s info.</p></details>
+        <details class="tbd-q"><summary>Where do we park, and which entrance? <span class="tbd">TBD</span></summary><p><span class="tbd">[TBD: parking and which entrance to use]</span></p></details>
+        <details class="tbd-q"><summary>When do we get our photo? <span class="tbd">TBD</span></summary><p><span class="tbd">[TBD: photo format, how many, and how/when it is delivered]</span></p></details>
+        <details class="tbd-q"><summary>How early should we arrive? What if we’re late? <span class="tbd">TBD</span></summary><p><span class="tbd">[TBD: arrival time and late policy]</span></p></details>
+        <details class="tbd-q"><summary>Do kids under 2 count toward the 80? <span class="tbd">TBD</span></summary><p><span class="tbd">[TBD: whether lap infants count toward the 80-ticket cap]</span></p></details>
+        <details class="tbd-q"><summary>Are tickets refundable? <span class="tbd">TBD</span></summary><p><span class="tbd">[TBD: confirm refund / date-change policy]</span> All sales are final, but you can transfer your tickets to a friend. Just have them email <a href="mailto:hello@brunchplz.com">hello@brunchplz.com</a> with their children’s info.</p></details>
       </div>
+      <p class="giftline">🎁 <b>Grandparents, aunts &amp; uncles:</b> give it as a gift. <a href="#dates">Pick a date</a> and send them the tickets.</p>
       <div class="cta-row"><a class="pill go" href="#dates">Get tickets</a><a class="pill" href="mailto:hello@brunchplz.com?subject=SANTA%2C%20PLEASE!%20question">Email us</a></div>
     </div>
   </section>
