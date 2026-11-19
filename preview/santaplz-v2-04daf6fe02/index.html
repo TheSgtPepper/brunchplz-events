@@ -18,7 +18,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 /* hide the empty Squarespace sections left after the code section (blank space under the footer) */
 #page .page-section:not(:has(#sp)), #footer-sections { display: none !important; }
 </style></head><body><header id="header" class="header"></header><main><section class="page-section"><div class="content-wrapper"><div class="sqs-block code-block"><div class="sqs-block-content"><!-- SANTA, PLEASE! v2 funnel for Squarespace (BASIC plan: HTML + CSS only). Paste this whole file into ONE Code block. -->
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@400;500;600;700;800&family=Gochi+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@125,800;125,900&family=Inter:wght@400;500;600;700;800&family=Gochi+Hand&family=Alfa+Slab+One&family=Playfair+Display:ital,wght@1,900&display=swap" rel="stylesheet">
 <style>
 
 /* ===== Squarespace hardening: keep the page's look inside Squarespace, and keep it from touching Squarespace's header/footer ===== */
@@ -1127,6 +1127,33 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 #sp .elfsig { font-family:Inter, system-ui, sans-serif; font-size:13px; font-style:italic; letter-spacing:.02em; }
 @media (max-width:760px){ #sp .steps .st-h { font-size:17px; } #sp .steps .st-c { font-size:14.5px; } }
 
+/* r7: holiday heading fonts (from the earlier story section) used page-wide.
+   Playfair Display 900 italic = headlines / section titles; Alfa Slab One = card + step titles, labels. Body stays Inter. */
+#sp .hero .hl, #sp .kids h2, #sp .tickets .intro .subhd, #sp .story .mc-h, #sp .story .hist-t {
+  font-family:"Playfair Display", Georgia, serif !important; font-style:italic; font-weight:900; font-stretch:normal; font-variation-settings:normal; text-transform:none; letter-spacing:-.005em; }
+#sp .hero .hl { font-size:clamp(24px,2.6vw,31px); line-height:1.08; }
+#sp .kids h2 { font-size:clamp(30px,3.6vw,42px); line-height:1.05; color:var(--sage-dark); }
+#sp .tickets .intro .subhd { font-size:clamp(24px,2.6vw,32px); line-height:1.08; color:var(--sage-dark); margin-bottom:10px; }
+#sp .story .mc-h { font-size:clamp(25px,2.7vw,33px); line-height:1.08; color:var(--clay); }
+#sp .story .hist-t { display:block; font-size:clamp(20px,2vw,24px); line-height:1.1; color:var(--sage-dark); margin-bottom:6px; }
+#sp .steps .st-h, #sp .gets h3, #sp .faqg summary, #sp .gift2 .pwyw .k {
+  font-family:"Alfa Slab One", Georgia, serif !important; font-weight:400; font-stretch:normal; font-variation-settings:normal; text-transform:uppercase; letter-spacing:.01em; }
+#sp .steps .st-h { font-size:20px; line-height:1.1; }
+#sp .gets h3 { font-size:15.5px; line-height:1.2; color:var(--sage-dark); }
+#sp .faqg summary { font-size:15.5px; line-height:1.3; color:var(--sage-dark); }
+#sp .gift2 .pwyw .k { font-size:26px; }
+@media (max-width:760px){
+  #sp .hero .hl { font-size:24px; }
+  #sp .kids h2 { font-size:30px; }
+  #sp .tickets .intro .subhd { font-size:24px; }
+  #sp .story .mc-h { font-size:25px; }
+  #sp .steps .st-h { font-size:17px; }
+  #sp .gets h3 { font-size:14px; }
+  #sp .faqg summary { font-size:14.5px; }
+  #sp .gift2 .pwyw .k { font-size:21px; }
+  #sp .gets h3 { font-size:13.5px; }
+}
+
 /* sticky Get Tickets bar (mobile only, CSS only) */
 #sp .stick { display:none; }
 @media (max-width:760px){
@@ -1223,7 +1250,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
     </div>
   </section>
 
-  <div class="kband" style="--c:82;--r:7;--o:0;--cm:82;--rm:7;--om:0"><h2 class="sr">Pick a Sunday</h2><picture aria-hidden="true"><img class="kb" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/kb_dates.webp" alt="" loading="lazy" decoding="async"></picture></div>
+  <div class="kband" style="--c:34;--r:7;--o:0;--cm:34;--rm:7;--om:0"><h2 class="sr">Dates</h2><picture aria-hidden="true"><img class="kb" src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/kb_dates2.webp" alt="" loading="lazy" decoding="async"></picture></div>
   <section class="section tickets knit-cream hem" id="dates" style="z-index:9">
     <div class="wrap">
       <div class="label intro">
@@ -1255,7 +1282,7 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
           <p>He was on his way to our trolley station when the lights went out. Our elves have a plan: with enough Christmas spirit, they can get it running again.</p>
           <p class="mission-go"><b>Your mission: help the elves save Christmas.</b></p>
         </div>
-        <div class="label"><p class="hist"><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 2v8M24 2h16"/><rect x="6" y="10" width="52" height="26" rx="5"/><path d="M6 18h52"/><rect x="12" y="21" width="9" height="8" rx="1"/><rect x="27.5" y="21" width="9" height="8" rx="1"/><rect x="43" y="21" width="9" height="8" rx="1"/><circle cx="18" cy="40" r="4"/><circle cx="46" cy="40" r="4"/><path d="M2 46h60"/></svg><span><b>A real 1928 trolley station.</b> Passenger &amp; Rail Co. was a stop on the CD&amp;M Electric Railway. The trolleys are long gone; this Christmas, the elves set up shop here.</span></p></div>
+        <div class="label"><p class="hist"><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M32 2v8M24 2h16"/><rect x="6" y="10" width="52" height="26" rx="5"/><path d="M6 18h52"/><rect x="12" y="21" width="9" height="8" rx="1"/><rect x="27.5" y="21" width="9" height="8" rx="1"/><rect x="43" y="21" width="9" height="8" rx="1"/><circle cx="18" cy="40" r="4"/><circle cx="46" cy="40" r="4"/><path d="M2 46h60"/></svg><span><b class="hist-t">A real 1928 trolley station.</b> Passenger &amp; Rail Co. was a stop on the CD&amp;M Electric Railway. The trolleys are long gone; this Christmas, the elves set up shop here.</span></p></div>
       </div>
       <ol class="steps" aria-label="How to save Christmas, in three steps">
         <li><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/snow_pjs.webp" width="300" height="248" alt="" loading="lazy" decoding="async"><div><h3 class="st-h">Wear your PJs</h3><p class="st-c">Cozy = extra spirit!</p></div></li>
