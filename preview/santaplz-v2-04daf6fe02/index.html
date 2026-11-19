@@ -1168,6 +1168,17 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 /* r5: tight cream knit (cream remap of the green story-section tile, same 300px scale) behind the cream sections */
 #sp .knit-cream, #sp .tickets.knit-cream, #sp .gift.knit-cream, #sp .faq.knit-cream, #sp .kids.knit-cream { background:#f3e9d6 url("https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/knit_tile_cream.webp") repeat; background-size:300px auto; }
 
+/* r5b: centre the knit title vertically in the red area (desktop/tablet row layout) */
+@media (min-width:1024px){
+  #sp .hero .top { align-items:flex-start; }
+  #sp .hero .tag { height:calc(var(--rh) * 30) !important; }
+  #sp .hero .knit-title { align-self:flex-start; margin-top:calc(var(--rh) * 6 + var(--cw) * -6 / 26); }
+}
+@media (min-width:1180px){
+  #sp .hero .tag { height:calc(var(--rh) * 25) !important; }
+  #sp .hero .knit-title { margin-top:calc(var(--rh) * 4 + var(--cw) * -6 / 26); }
+}
+
 /* sticky Get Tickets bar (mobile only, CSS only) */
 #sp .stick { display:none; }
 @media (max-width:760px){
