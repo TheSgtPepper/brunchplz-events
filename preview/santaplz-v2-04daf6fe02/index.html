@@ -987,11 +987,18 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 #sp .hero .tag { --tagh:330px; }
 @media (min-width:1024px) and (max-width:1079px){ #sp .hero .tag { --tagh:330px; } }
 
-/* proof strip */
-#sp .proof { background:var(--ever-deep); color:#f6efe6; padding:16px clamp(16px,4vw,40px); position:relative; z-index:12; }
-#sp .proof ul { list-style:none; margin:0 auto; max-width:1120px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px 28px; font-size:14.5px; line-height:1.35; text-align:center; }
-#sp .proof li b { color:var(--gold-soft); font-weight:700; }
-#sp .proof li + li::before { content:"✶"; color:var(--gold); margin-right:28px; margin-left:-14px; }
+/* proof strip: logos styled like brunchplz.com's hero badge bar (white logos, small caps captions) */
+#sp .proof { background:var(--ever-deep); color:#f6efe6; padding:18px clamp(16px,4vw,40px) 20px; position:relative; z-index:12; text-align:center; }
+#sp .proof .pf-t { margin:0 auto 14px; max-width:900px; font-size:15px; line-height:1.4; color:#f6efe6; }
+#sp .proof .pf-t b { color:var(--gold-soft); font-weight:800; }
+#sp .proof .bdg { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:14px 28px; }
+#sp .proof .bdg-press, #sp .proof .bdg-awards { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:14px 22px; }
+#sp .proof .asl { font:700 11px Inter, sans-serif; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.7); }
+#sp .proof figure { margin:0; display:flex; flex-direction:column; align-items:center; gap:5px; }
+#sp .proof .bdg img { height:34px; width:auto; max-width:120px; object-fit:contain; filter:brightness(0) invert(1); opacity:.92; }
+#sp .proof .bdg img.inv { filter:grayscale(1) invert(1); }
+#sp .proof figcaption { font:700 9px Inter, sans-serif; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.7); line-height:1.3; max-width:150px; }
+#sp .proof .sep { width:1px; height:34px; background:rgba(255,255,255,.28); flex:0 0 auto; }
 
 /* what kids get */
 #sp .kids { padding-top:clamp(40px,6vw,64px); }
@@ -1057,8 +1064,6 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 /* faq spacing + final CTA */
 #sp .faq .cta-row { justify-content:center; }
 #sp .faqg { margin-left:auto; margin-right:auto; }
-#sp .proof ul { gap:6px 22px; font-size:14px; }
-#sp .proof li + li::before { margin-right:22px; margin-left:-11px; }
 #sp .foot2 { background:var(--ever-deep); color:#d9e3dc; text-align:center; padding:34px 20px 40px; font-size:14px; }
 #sp .foot2 .d { font-family:Archivo, Impact, sans-serif; font-weight:900; font-stretch:125%; font-variation-settings:"wdth" 125; text-transform:uppercase; color:#fff; font-size:20px; margin-bottom:6px; }
 #sp .foot2 p { margin:2px 0; }
@@ -1074,8 +1079,11 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   #sp .stick .s-t b { display:block; font-size:15.5px; color:var(--gold-soft); }
   #sp .stick .pill.go { min-height:50px; padding:10px 20px; font-size:18px; width:auto; box-shadow:0 3px 0 var(--go-edge); }
   #sp .foot2 { padding-bottom:110px; }
-  #sp .proof ul { flex-direction:column; gap:6px; }
-  #sp .proof li + li::before { content:none; }
+  #sp .proof .pf-t { font-size:14.5px; margin-bottom:12px; }
+  #sp .proof .bdg { gap:10px 18px; }
+  #sp .proof .sep { display:none; }
+  #sp .proof .bdg img { height:26px; max-width:90px; }
+  #sp .proof .asl { font-size:10px; letter-spacing:.14em; }
   #sp .hero .tag { --tagh:300px; padding:18px 18px 20px; }
   #sp .hero .hl { font-size:22px; }
   #sp .hero .band { display:none; }
@@ -1129,11 +1137,12 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
   </div>
 
   <aside class="proof" aria-label="About us">
-    <ul>
-      <li>From the team behind <b>BRUNCH, PLEASE!</b>: 15,000 guests from 44 states</li>
-      <li><b>2026 Heritage Ohio</b> Main Street Business of the Year</li>
-      <li>As featured on <b>ABC6</b> &amp; <b>FOX 28</b></li>
-    </ul>
+    <p class="pf-t">From the team behind the world famous <b>BRUNCH, PLEASE!</b>: 15,000+ guests from 47 states and 5 countries</p>
+    <div class="bdg">
+      <div class="bdg-press"><span class="asl">As featured on</span><figure><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/abc.svg" alt="ABC" class="inv" width="34" height="34" loading="lazy"></figure><figure><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/fox.svg" alt="FOX" width="80" height="34" loading="lazy"></figure></div>
+      <i class="sep"></i>
+      <div class="bdg-awards"><figure><img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/heritage-ohio.webp" alt="Heritage Ohio" width="97" height="34" loading="lazy"><figcaption>2026 Main Street<br>Business of the Year</figcaption></figure></div>
+    </div>
   </aside>
 
   <section class="section kids knit-cream" id="kids" style="position:relative;z-index:11">
