@@ -1227,6 +1227,12 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
 /* gift drive + faq sections keep v2 styles; plain backgrounds */
 #sp .proof { margin-top:0; padding-top:28px; padding-bottom:44px; }
 
+/* real Car 501 photo as a vintage print */
+#sp .story3 figure.print { justify-self:center; max-width:380px; width:100%; }
+#sp .story3 figure.print img { border-radius:2px; padding:12px 12px 14px; background:#f3ead8; box-shadow:0 2px 0 rgba(0,0,0,.15), 0 22px 44px rgba(0,0,0,.45); transform:rotate(-2deg); }
+#sp .story3 figure.print .hist3 { margin-top:18px; text-align:center; }
+@media (max-width:900px){ #sp .story3 figure.print { max-width:300px; } }
+
 @media (min-width:1024px){
   #sp .hero .tag .inv-top .hl { font-size:clamp(25px,2.4vw,30px); }
 }
@@ -1295,10 +1301,10 @@ html { overflow-x: clip; }                       /* the block is full-bleed (100
           <p class="s-p">Santa was on his way to CD&amp;M Station when the lights went out. Santa’s elves have a plan: fill the Spirit-O-Meter with enough Christmas spirit, and his trolley runs again. <b>The kids are the heroes.</b></p>
           <p class="s-go">Your mission: help the elves save Christmas.</p>
         </div>
-        <figure>
-          <!-- ILLUSTRATION (AI-generated vintage-print artwork, clearly illustrative): illu_trolley_night -->
-          <img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/illu_trolley_night_1024.webp" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/illu_trolley_night_640.webp 640w, https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/illu_trolley_night_1024.webp 1024w" sizes="(max-width:900px) 92vw, 540px" width="1024" height="576" alt="Illustration: Santa’s red trolley, lights out, stopped in the snow beside a glowing brick trolley station" loading="lazy" decoding="async">
-          <figcaption class="hist3"><b>A real 1928 trolley station.</b> Passenger &amp; Rail Co., behind Bucci’s, was a stop on the CD&amp;M Electric Railway. The trolleys are long gone; this Christmas, the elves set up shop here.</figcaption>
+        <figure class="print">
+          <!-- REAL PHOTO (from Alex): Car 501 outside the station -->
+          <img src="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/trolley_501_640.webp" srcset="https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/trolley_501_640.webp 423w, https://thesgtpepper.github.io/brunchplz-events/assets/santaplz/v2/trolley_501_1024.webp 423w" sizes="(max-width:900px) 80vw, 380px" width="423" height="700" alt="Vintage black-and-white photo of trolley Car 501, with a MARION sign, outside the station" loading="lazy" decoding="async">
+          <figcaption class="hist3"><b>The real Car 501, right outside our 1928 station.</b> Passenger &amp; Rail Co., behind Bucci’s, was a stop on the CD&amp;M Electric Railway. This Christmas, the elves set up shop here.</figcaption>
         </figure>
       </div>
       <ol class="seq3" aria-label="How to save Christmas, in three steps">
