@@ -1,5 +1,5 @@
 {
- "generated": 1795173625,
+ "generated": 1795204706,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -140,7 +140,7 @@
    "start_iso": "2026-12-19T10:00:00-05:00",
    "label": "Sat Dec 19, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 6,
+   "left": 4,
    "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2339571",
@@ -388,8 +388,8 @@
   },
   {
    "id": "ev_9267216",
-   "name": "BRUNCH, PLEASE! CATS LADIES",
-   "theme": "CATS LADIES",
+   "name": "BRUNCH, PLEASE!",
+   "theme": "",
    "date": "2027-02-13",
    "day": "Sat",
    "time": "10AM",
