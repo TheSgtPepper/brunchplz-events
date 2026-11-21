@@ -1,5 +1,5 @@
 {
- "generated": 1795281666,
+ "generated": 1795302178,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -140,7 +140,7 @@
    "start_iso": "2026-12-20T10:00:00-05:00",
    "label": "Sun Dec 20, 2026 10:00 AM",
    "from_price": 30.0,
-   "left": 3,
+   "left": 1,
    "badge": "Almost gone",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2339572",
