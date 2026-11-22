@@ -1,5 +1,5 @@
 {
- "generated": 1795302178,
+ "generated": 1795316352,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -156,8 +156,8 @@
    "start_iso": "2026-12-21T10:00:00-05:00",
    "label": "Mon Dec 21, 2026 10:00 AM",
    "from_price": 28.0,
-   "left": 27,
-   "badge": "27 left",
+   "left": 25,
+   "badge": "25 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328668",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759621/chk/1c82fb014aee498a7db9e6354818fdd4/"
@@ -252,8 +252,8 @@
    "start_iso": "2027-01-16T10:00:00-05:00",
    "label": "Sat Jan 16, 2027 10:00 AM",
    "from_price": 28.0,
-   "left": 31,
-   "badge": "31 left",
+   "left": 24,
+   "badge": "24 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2426077",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/9112856/chk/18d288fc0aea2b82ab1b038e06acd90f/"
@@ -444,8 +444,8 @@
    "start_iso": "2027-02-27T10:00:00-05:00",
    "label": "Sat Feb 27, 2027 10:00 AM",
    "from_price": 28.0,
-   "left": 37,
-   "badge": "37 left",
+   "left": 31,
+   "badge": "31 left",
    "sold_out": false,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2471798",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/9267220/chk/94c420d499f14086915c5c1313da82ae/"
