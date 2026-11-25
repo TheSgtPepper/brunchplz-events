@@ -1,5 +1,5 @@
 {
- "generated": 1795572896,
+ "generated": 1795610139,
  "source": "Ticket Tailor (public event info only)",
  "events": [
   {
@@ -27,10 +27,10 @@
    "time": "10AM",
    "start_iso": "2026-11-29T10:00:00-05:00",
    "label": "Sun Nov 29, 2026 10:00 AM",
-   "from_price": 30.0,
-   "left": 1,
-   "badge": "Almost gone",
-   "sold_out": false,
+   "from_price": 28.0,
+   "left": 0,
+   "badge": "SOLD OUT",
+   "sold_out": true,
    "url": "https://tickets.brunchplz.com/events/brickyardonmain/2328667",
    "checkout_url": "https://tickets.brunchplz.com/checkout/view-event/id/8759620/chk/2ac001dd8f9522eafd55c265d7d12c2a/"
   },
