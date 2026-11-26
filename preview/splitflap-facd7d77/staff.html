@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Board queue — staff (draft mockup)</title>
+<title>Board rotation — staff (draft mockup)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,27 +17,35 @@
       <span class="badge">Draft mockup — not live</span>
       <nav>
         <a href="index.html">Guest</a>
-        <a href="staff.html" class="on">Staff queue</a>
+        <a href="staff.html" class="on">Rotation</a>
         <a href="later.html">Coming later</a>
       </nav>
     </div>
-    <p class="hint">Floor lead phone queue. Ages tick live in this mockup. Nothing here is a real order or payment.</p>
+    <p class="hint">Live rotation view. Messages auto-join after the filter. Nothing here is a real order or payment.</p>
   </div>
 
   <header class="staff-head">
     <p class="logo">Brunch, Please!</p>
-    <h1>Board queue</h1>
-    <p>Saturday brunch · Sat, Nov 28 · Aim for 2 minutes. Hold (never auto-approve) at 5.</p>
-    <p class="approver">Approver: Floor lead (backup: Casey)</p>
+    <h1>Board rotation</h1>
+    <p>Saturday brunch · Sat, Nov 28</p>
+    <div class="stat-row">
+      <span class="stat" id="capStat">3 of 6 paid left</span>
+      <span class="stat filter">Blocked by filter today: 1 (auto-refunded)</span>
+    </div>
     <p class="draft-note" style="margin-top:10px">Draft — pending Alex's approval</p>
   </header>
 
   <section class="slot now">
     <h2>Now showing</h2>
     <div class="board-wrap"><div id="nowBoard" class="sf-board is-compact"></div></div>
-    <p class="meta" id="nowMeta">Standard · Table 7 · 1:42 left of 3:00</p>
+    <p class="meta" id="nowMeta">From Chris · Table 7 · Standard · 1:42 left of 3:00</p>
     <div class="bar" aria-hidden="true"><i id="nowBar" style="width:44%"></i></div>
+    <div class="now-actions">
+      <button type="button" class="btn-pull" id="pullNow">Pull</button>
+    </div>
   </section>
+
+  <p class="pull-note">Pulled messages are refunded. Draft — pending Alex's confirmation.</p>
 
   <section class="slot">
     <h2>Up next</h2>
@@ -52,54 +60,30 @@
     <div class="board-wrap" style="margin-top:8px"><div id="houseBoard" class="sf-board is-compact"></div></div>
     <button type="button" class="btn btn-card" id="houseQueue">Queue house message</button>
   </section>
-
-  <section class="queue">
-    <h2 class="kicker" style="margin:4px 0 10px">Pending approval</h2>
-    <div id="pending"></div>
-  </section>
 </div>
 
 <div class="toast" id="toast" role="status"></div>
-<div class="modal" id="modal" role="dialog" aria-labelledby="editTitle">
-  <div class="box">
-    <h3 id="editTitle">Edit shout-out</h3>
-    <p class="fine" style="text-align:left">Staff can fix a typo or trim a word before it goes up. Still has to fit 4 × 15.</p>
-    <textarea id="editMsg" class="msg-input" maxlength="60" rows="3"></textarea>
-    <p class="fine" id="editWarn" style="text-align:left;color:var(--hold)"></p>
-    <div class="actions" style="grid-template-columns:1fr 1fr">
-      <button type="button" id="editCancel">Cancel</button>
-      <button type="button" class="go" id="editSave">Save edit</button>
-    </div>
-  </div>
-</div>
 
 <script src="flap.js"></script>
 <script>
 (function () {
-  const nowLeftStart = 102; // 1:42 of 180
+  const nowLeftStart = 102;
   const nowTotal = 180;
   let nowLeft = nowLeftStart;
   const started = Date.now();
 
-  const pendingSeed = [
-    { id: "p0", text: "LET US GO TABLE 4", from: "Riley", table: "4", amount: 10, tier: "Standard", note: "", age: 18, filtered: true },
-    { id: "p1", text: "HAPPY BDAY JESS!", from: "Jess", table: "12", amount: 20, tier: "Spotlight", note: "During the cake", age: 48 },
-    { id: "p2", text: "WE ARE SO BACK", from: "", table: "4", amount: 10, tier: "Standard", note: "", age: 111 },
-    { id: "p3", text: "SING IT LOUDER", from: "", table: "9", amount: 10, tier: "Standard", note: "", age: 261 },
-    { id: "p4", text: "LOVE YOU MOM", from: "Sam", table: "2", amount: 10, tier: "Standard", note: "", age: 318 }
-  ];
-  const upSeed = [
+  let nowItem = { id: "n1", text: "WELCOME TABLE 7", from: "Chris", table: "7", amount: 10, tier: "Standard", paid: true };
+  let upNext = [
     { id: "h1", text: "MIMOSA TOWER $35 10 LEFT", house: true },
-    { id: "u1", text: "CHEERS FROM T8", from: "Chris", table: "8", amount: 10, tier: "Standard" },
-    { id: "u2", text: "HAPPY ANNIVERSARY", from: "Sam", table: "11", amount: 20, tier: "Spotlight", note: "Right after this song" }
+    { id: "u1", text: "CHEERS FROM T8", from: "Pat", table: "8", amount: 10, tier: "Standard", paid: true },
+    { id: "u2", text: "HAPPY BDAY JESS!", from: "Jess", table: "12", amount: 20, tier: "Spotlight", note: "During the cake", paid: true },
+    { id: "u3", text: "HAPPY ANNIVERSARY", from: "Sam", table: "11", amount: 20, tier: "Spotlight", note: "Right after this song", paid: true }
   ];
-
-  let pending = pendingSeed.map((x) => ({ ...x }));
-  let upNext = upSeed.map((x) => ({ ...x }));
-  let editing = null;
+  let paidLeft = 3;
+  const paidCap = 6;
 
   SplitFlap.mount(document.getElementById("nowBoard"), { compact: true, animate: false });
-  SplitFlap.set(document.getElementById("nowBoard"), "WELCOME TABLE 7", { animate: false });
+
   const houseBoard = document.getElementById("houseBoard");
   const houseMsg = document.getElementById("houseMsg");
   SplitFlap.mount(houseBoard, { compact: true, animate: false });
@@ -127,24 +111,35 @@
     return m + ":" + s;
   }
 
-  function ageClass(age) {
-    if (age >= 300) return "held";
-    if (age >= 120) return "warn";
-    return "ok";
-  }
-
-  function ageLabel(age) {
-    if (age >= 300) return fmt(age) + " · HELD — not auto-approved";
-    if (age >= 120) return fmt(age) + " · hold at 5:00";
-    return fmt(age) + " · review by 2:00";
-  }
-
   function toast(text) {
     const el = document.getElementById("toast");
     el.textContent = text;
     el.classList.add("show");
     clearTimeout(toast._t);
-    toast._t = setTimeout(() => el.classList.remove("show"), 2400);
+    toast._t = setTimeout(() => el.classList.remove("show"), 2800);
+  }
+
+  function who(item) {
+    if (item.house) return "";
+    return (item.from ? "From " + item.from : "") +
+      (item.from && item.table ? " · " : "") +
+      (item.table ? "Table " + item.table : "");
+  }
+
+  function showNow() {
+    const board = document.getElementById("nowBoard");
+    const meta = document.getElementById("nowMeta");
+    const pull = document.getElementById("pullNow");
+    if (!nowItem) {
+      SplitFlap.set(board, "", { animate: false });
+      meta.textContent = "Nothing on the board. Queue a house message or wait for the next shout-out.";
+      document.getElementById("nowBar").style.width = "0%";
+      pull.style.display = "none";
+      return;
+    }
+    pull.style.display = "inline-flex";
+    SplitFlap.set(board, nowItem.text, { animate: false });
+    tickNow();
   }
 
   function renderUp() {
@@ -153,125 +148,76 @@
       root.innerHTML = "<p class='meta'>Nothing queued yet.</p>";
       return;
     }
-    root.innerHTML = upNext.map((item, i) => {
-      let meta;
+    root.innerHTML = "";
+    upNext.forEach((item, i) => {
+      const row = document.createElement("div");
+      row.className = "up-item";
+      let mid;
       if (item.house) {
-        meta = '<span class="tag house">House</span> <span class="meta">Does not count toward the 6 paid slots</span>';
+        mid = '<span class="tag house">House</span> <span class="meta">Does not count toward the 6 paid slots</span>';
       } else {
-        meta = "<span class='meta'>" +
-          (item.from ? "From " + item.from + " · " : "") +
-          (item.table ? "Table " + item.table + " · " : "") +
-          item.tier + " $" + item.amount +
+        mid = "<span class='meta'>" + who(item) +
+          (who(item) ? " · " : "") + item.tier + " $" + item.amount +
           (item.note ? " · " + item.note : "") + "</span>";
       }
-      return '<div class="up-item"><span class="num">' + (i + 1) + '</span><div>' +
-        "<b>" + item.text + "</b>" + meta + "</div></div>";
-    }).join("");
-  }
-
-  function renderPending() {
-    const root = document.getElementById("pending");
-    if (!pending.length) {
-      root.innerHTML = "<p class='meta'>Queue is clear. Nice work.</p>";
-      return;
-    }
-    root.innerHTML = "";
-    pending.forEach((item) => {
-      const age = currentAge(item);
-      const card = document.createElement("article");
-      card.className = "card " + ageClass(age);
-      const filterBadge = item.filtered
-        ? '<div class="tag filter">Filtered by profanity filter</div>'
-        : "";
-      const who = (item.from ? "From " + item.from : "") +
-        (item.from && item.table ? " · " : "") +
-        (item.table ? "Table " + item.table : "");
-      card.innerHTML =
-        '<div class="top"><div class="age ' + ageClass(age) + '">' + ageLabel(age) + "</div>" +
-        filterBadge +
-        '<div class="board-wrap"><div class="mini"></div></div></div>' +
-        '<p class="meta">' + who +
-        " · $" + item.amount + " " + item.tier + (item.note ? " · “" + item.note + "”" : "") + "</p>" +
-        '<div class="actions">' +
-        '<button type="button" class="go" data-act="approve">Approve</button>' +
-        '<button type="button" class="no" data-act="reject">Reject · refund</button>' +
-        '<button type="button" data-act="edit">Edit</button></div>';
-      const mini = card.querySelector(".mini");
-      SplitFlap.mount(mini, { tiny: true, animate: false });
-      SplitFlap.set(mini, item.text, { animate: false });
-      card.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", () => handle(item.id, btn.dataset.act));
-      });
-      root.appendChild(card);
+      row.innerHTML = '<span class="num">' + (i + 1) + '</span><div style="flex:1;min-width:0"><b>' +
+        item.text + "</b>" + mid + '</div>';
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn-pull";
+      btn.textContent = "Pull";
+      btn.addEventListener("click", () => pullItem(item.id, false));
+      row.appendChild(btn);
+      root.appendChild(row);
     });
   }
 
-  function currentAge(item) {
-    return item.age + (Date.now() - started) / 1000;
+  function updateCap() {
+    document.getElementById("capStat").textContent = paidLeft + " of " + paidCap + " paid left";
   }
 
-  function handle(id, act) {
-    const item = pending.find((p) => p.id === id);
+  function pullItem(id, isNow) {
+    let item;
+    if (isNow) {
+      item = nowItem;
+      nowItem = upNext.shift() || null;
+    } else {
+      item = upNext.find((p) => p.id === id);
+      upNext = upNext.filter((p) => p.id !== id);
+    }
     if (!item) return;
-    if (act === "approve") {
-      pending = pending.filter((p) => p.id !== id);
-      upNext.push(item);
-      toast("Approved — added to Up next.");
-      renderAll();
-    } else if (act === "reject") {
-      pending = pending.filter((p) => p.id !== id);
-      toast("Rejected. Full refund sent to the original payment.");
-      renderAll();
-    } else if (act === "edit") {
-      editing = item;
-      document.getElementById("editMsg").value = item.text;
-      document.getElementById("editWarn").textContent = "";
-      document.getElementById("modal").classList.add("show");
-    }
+    if (item.paid && paidLeft < paidCap) paidLeft += 1;
+    toast(item.house
+      ? "House message pulled."
+      : "Pulled. Refund is marked as draft — pending Alex's confirmation.");
+    renderAll();
   }
 
-  document.getElementById("editCancel").addEventListener("click", () => {
-    document.getElementById("modal").classList.remove("show");
-    editing = null;
-  });
-  document.getElementById("editSave").addEventListener("click", () => {
-    if (!editing) return;
-    const laid = SplitFlap.layout(document.getElementById("editMsg").value);
-    if (!laid.text.trim()) {
-      document.getElementById("editWarn").textContent = "Message can't be empty.";
-      return;
-    }
-    if (laid.overflow) {
-      document.getElementById("editWarn").textContent = "Still longer than 4 rows.";
-      return;
-    }
-    editing.text = laid.text;
-    document.getElementById("modal").classList.remove("show");
-    toast("Edit saved. Still needs Approve or Reject.");
-    editing = null;
-    renderAll();
+  document.getElementById("pullNow").addEventListener("click", () => {
+    if (nowItem) pullItem(nowItem.id, true);
   });
 
   function tickNow() {
     const elapsed = (Date.now() - started) / 1000;
     nowLeft = Math.max(0, nowLeftStart - elapsed);
+    if (!nowItem) return;
     const used = nowTotal - nowLeft;
-    document.getElementById("nowMeta").textContent =
-      "Standard · Table 7 · " + fmt(nowLeft) + " left of 3:00";
+    const hold = nowItem.tier === "Spotlight" ? "5:00" : "3:00";
+    const label = (who(nowItem) ? who(nowItem) + " · " : "") +
+      (nowItem.house ? "HOUSE · " : (nowItem.tier + " · ")) +
+      fmt(nowLeft) + " left of " + hold;
+    document.getElementById("nowMeta").textContent = label;
     document.getElementById("nowBar").style.width = Math.min(100, (used / nowTotal) * 100) + "%";
   }
 
   function renderAll() {
+    updateCap();
+    showNow();
     renderUp();
-    renderPending();
   }
 
   renderAll();
-  tickNow();
-  setInterval(() => {
-    tickNow();
-    renderPending();
-  }, 1000);
+  setInterval(() => { if (nowItem) tickNow(); }, 1000);
 })();
 </script>
 </body>

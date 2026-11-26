@@ -469,9 +469,9 @@ textarea:focus, input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px r
 #compose, #soldout { display: none; }
 body[data-state="compose"] #compose { display: block; }
 body[data-state="soldout"] #soldout { display: block; }
-body[data-state="pending"] #status-pending { display: block; }
 body[data-state="upnext"] #status-upnext { display: block; }
-body[data-state="rejected"] #status-rejected { display: block; }
+body[data-state="blocked"] #status-blocked,
+body[data-state="rejected"] #status-blocked { display: block; }
 
 #soldout { padding: 28px 20px 48px; text-align: center; }
 #soldout h2 {
@@ -715,3 +715,46 @@ footer.fineprint {
 .house-box textarea { min-height: 72px; margin: 8px 0; }
 .house-box .btn { margin-top: 10px; min-height: 44px; font-size: 14px; }
 .approver { margin: 8px 0 0; color: #fff; font-weight: 700; font-size: 13px; }
+
+.btn-pull {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 2px solid var(--hold);
+  background: #fff;
+  color: var(--hold);
+  font: 800 12px var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-pull:hover { background: #fff1f0; }
+.up-item .btn-pull { margin-left: auto; }
+.up-item { align-items: center; }
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.stat {
+  display: inline-block;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 99px;
+}
+.stat.filter { background: #2a1010; border-color: #5a1a1a; }
+.pull-note {
+  margin: 8px 16px 0;
+  padding: 10px 12px;
+  background: var(--blush);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+}
+.now-actions { margin-top: 10px; }

@@ -17,7 +17,7 @@
       <span class="badge">Draft mockup — not live</span>
       <nav>
         <a href="index.html" class="on">Guest</a>
-        <a href="staff.html">Staff queue</a>
+        <a href="staff.html">Rotation</a>
         <a href="later.html">Coming later</a>
       </nav>
     </div>
@@ -31,9 +31,8 @@
       <label>Screen
         <select id="stateToggle" aria-label="Guest screen preview">
           <option value="compose">Compose</option>
-          <option value="pending">Pending approval</option>
-          <option value="upnext">You're up around 11:40</option>
-          <option value="rejected">Not approved — refunded</option>
+          <option value="upnext">You're in the rotation</option>
+          <option value="blocked">Filter blocked — refunded</option>
         </select>
       </label>
     </div>
@@ -45,7 +44,7 @@
       <p class="logo">Brunch, Please!</p>
       <p class="cap" id="capPill"><i></i> 3 of 6 left <span class="cap-date">Sat, Nov 28 brunch</span></p>
       <h1>Put your <em>shout-out</em> on the board</h1>
-      <p>Type it, watch the flaps, and we'll run it during brunch — if the floor lead says yes.</p>
+      <p>Type it, watch the flaps, and we'll run it during brunch.</p>
     </header>
 
     <div class="panel">
@@ -102,7 +101,7 @@
 
       <div class="rules">
         <span class="draft-note">Draft house rules — pending Alex's approval</span>
-        <p style="margin:0">Every message is reviewed by staff before it goes up. Keep it fun and kind. No profanity or slurs, no explicit content, no mean roasts, no last names, no phone numbers or social handles, no ads, no politics. Cheeky fun is fine. Not approved = refunded in full. Once it's run, it isn't refundable.</p>
+        <p style="margin:0">Messages go up automatically. Our filter blocks profanity, last names, phone numbers and handles. Blocked = refunded. Cheeky fun is fine. Once it's run, it isn't refundable.</p>
       </div>
 
       <p class="kicker">Pay &amp; submit</p>
@@ -112,7 +111,7 @@
           <button type="button" class="btn btn-google" data-pay="google"> Pay with Google Pay</button>
           <button type="button" class="btn btn-card" data-pay="card">Pay with card</button>
         </div>
-                <p class="fine square-line">Secure checkout by Square</p>
+        <p class="fine square-line">Secure checkout by Square</p>
         <p class="fine">Fake buttons only — no payment is taken.</p>
       </div>
     </div>
@@ -127,31 +126,21 @@
     <p class="fine">Cap: 6 paid shout-outs per brunch (decided). Draft only.</p>
   </section>
 
-  <section class="status" id="status-pending">
-    <p class="big-tag">Pending approval</p>
-    <h2>You're in the queue! #4</h2>
-    <p>A host is reviewing this now. We aim to get back to you within a couple of minutes. We'll flash it soon if it's a yes.</p>
-    <div class="board-wrap" style="text-align:left;margin:18px 0">
-      <div id="board-pending" class="sf-board is-compact"></div>
-    </div>
-    <p class="fine">If it's not approved, you'll get an automatic full refund to the original payment.</p>
-  </section>
-
   <section class="status upnext" id="status-upnext">
-    <p class="big-tag">Approved</p>
-    <h2>You're up around</h2>
+    <p class="big-tag">You're in the rotation!</p>
+    <h2>Up around</h2>
     <p class="time">11:40</p>
-    <p>Your shout-out is locked in. Keep an eye on the board — and on the host if you booked Spotlight.</p>
+    <p>Your shout-out is locked in and will go up automatically. Keep an eye on the board — and on the host if you booked Spotlight.</p>
     <div class="board-wrap" style="text-align:left;margin:18px 0">
       <div id="board-upnext" class="sf-board is-compact"></div>
     </div>
   </section>
 
-  <section class="status rejected" id="status-rejected">
-    <p class="big-tag">Not approved — refunded</p>
+  <section class="status rejected" id="status-blocked">
+    <p class="big-tag">Filter blocked this message — refunded</p>
     <h2>This one didn't go up.</h2>
-    <p>No hard feelings. The full amount was sent back to the original payment automatically.</p>
-    <p class="fine">Approved messages that have already run aren't refundable.</p>
+    <p>Our filter caught something in the message. The full amount was sent back to the original payment automatically.</p>
+    <p class="fine">Messages that have already run aren't refundable.</p>
   </section>
 
   <footer class="fineprint">BRUNCH, PLEASE! at Bucci's · 320 W. Center St., Marion, OH · Draft mockup, not a live checkout</footer>
@@ -162,9 +151,7 @@
 (function () {
   const board = document.getElementById("board");
   SplitFlap.mount(board);
-  const pendingBoard = document.getElementById("board-pending");
   const upnextBoard = document.getElementById("board-upnext");
-  SplitFlap.mount(pendingBoard, { compact: true, animate: false });
   SplitFlap.mount(upnextBoard, { compact: true, animate: false });
 
   const msg = document.getElementById("msg");
@@ -214,12 +201,13 @@
     if (laid.overflow) notes.push("That's more than 4 rows. Trim a little so it all fits on the board.");
     warn.textContent = notes.join(" ");
     warn.classList.toggle("show", notes.length > 0);
-    SplitFlap.set(pendingBoard, laid, { animate: false });
     SplitFlap.set(upnextBoard, laid, { animate: false });
     return laid;
   }
 
   function setState(state) {
+    if (state === "pending") state = "upnext";
+    if (state === "rejected") state = "blocked";
     const cap = capToggle.value;
     if (cap === "soldout" && (state === "compose" || state === "soldout")) {
       state = "soldout";
@@ -322,7 +310,7 @@
       return;
     }
     capToggle.value = "open";
-    setState("pending");
+    setState("upnext");
   }
 
   document.querySelectorAll("[data-pay]").forEach((btn) => {
