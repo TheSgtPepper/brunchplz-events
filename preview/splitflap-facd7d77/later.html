@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Coming later — song vote &amp; requests (draft mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="phone">
+  <div class="chrome" role="region" aria-label="Mockup controls">
+    <div class="row">
+      <span class="badge">Draft mockup — not live</span>
+      <nav>
+        <a href="index.html">Guest</a>
+        <a href="staff.html">Staff queue</a>
+        <a href="later.html" class="on">Coming later</a>
+      </nav>
+    </div>
+    <p class="hint">These modes are not part of launch. Light sketches only.</p>
+  </div>
+
+  <header class="later-hero">
+    <span class="coming">Coming later</span>
+    <p class="logo">Brunch, Please!</p>
+    <h1>The board can do more</h1>
+    <p>After shout-outs are humming, we can use the same flaps for a room-wide vote and a cheap song request line.</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button type="button" class="on" data-tab="vote" id="tab-vote">A / B / C / D vote</button>
+    <button type="button" data-tab="request" id="tab-request">$5 song request</button>
+  </div>
+
+  <section class="pane on" id="pane-vote">
+    <span class="coming">Coming later</span>
+    <p class="kicker">On the board right now</p>
+    <div class="board-wrap">
+      <div id="voteBoard" class="sf-board" aria-label="Four song options on the board"></div>
+    </div>
+    <p class="fine" style="text-align:left;margin:8px 0 14px">The flaps show four choices, one per row. Guests scan the same QR and tap. Tallies update live. Host plays the winner at the end of the round.</p>
+    <p class="field" style="margin-top:0">Tap to vote — mock totals</p>
+    <div class="vote" id="votes"></div>
+    <p class="fine" id="voteThanks"></p>
+  </section>
+
+  <section class="pane" id="pane-request">
+    <span class="coming">Coming later</span>
+    <p class="kicker">$5 song request</p>
+    <p style="margin:0 0 14px;font-size:15px;line-height:1.5;color:#333">Pick a song, or type one. It goes to a staff queue with a note about how deep the list is — no promise it gets played, just a real shot.</p>
+    <label class="field" for="songPick">Pick one</label>
+    <div class="vote" id="songPicks"></div>
+    <label class="field" for="songType">Or type a title</label>
+    <input type="text" id="songType" maxlength="40" placeholder="Mr. Brightside" autocomplete="off">
+    <p class="fine" style="text-align:left">Queue note, for example: “7 requests ahead — we'll try.”</p>
+    <button type="button" class="btn btn-card" id="reqBtn" style="margin-top:14px">Request this song · $5</button>
+    <p class="fine" id="reqThanks"></p>
+    <p class="fine">Fake button. Not for launch, and no payment is taken.</p>
+  </section>
+
+  <footer class="fineprint">Draft sketches only · not in the first version of the board</footer>
+</div>
+
+<script src="flap.js"></script>
+<script>
+(function () {
+  const songs = [
+    { id: "A", title: "Shake It Off", board: "A  SHAKE IT OFF", votes: 14 },
+    { id: "B", title: "Mr. Brightside", board: "B MR BRIGHTSIDE", votes: 11 },
+    { id: "C", title: "I Wanna Dance", board: "C I WANNA DANCE", votes: 7 },
+    { id: "D", title: "Before He Cheats", board: "D BEF HE CHEATS", votes: 9 }
+  ];
+  const picks = ["Shake It Off", "Mr. Brightside", "I Wanna Dance", "Before He Cheats", "Don't Stop Believin'"];
+
+  const boardText = songs.map((s) => s.board).join("\n").replace(/\n/g, "");
+  // layout via raw lines: force four rows as designed
+  const voteBoard = document.getElementById("voteBoard");
+  SplitFlap.mount(voteBoard, { animate: false });
+  SplitFlap.set(voteBoard, {
+    lines: songs.map((s) => (s.board + "               ").slice(0, 15)),
+    flat: songs.map((s) => (s.board + "               ").slice(0, 15)).join("")
+  }, { animate: false });
+
+  let voted = false;
+  const voteRoot = document.getElementById("votes");
+
+  function renderVotes() {
+    const total = songs.reduce((n, s) => n + s.votes, 0) || 1;
+    voteRoot.innerHTML = "";
+    songs.forEach((s) => {
+      const pct = Math.round((s.votes / total) * 100);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.innerHTML = '<span class="letter">' + s.id + "</span><span>" + s.title +
+        '</span><span class="tally">' + s.votes + "</span>" +
+        '<span class="barline"><i style="width:' + pct + '%"></i></span>';
+      if (s.on) btn.classList.add("on");
+      btn.addEventListener("click", () => {
+        if (voted && s.on) return;
+        if (voted) return;
+        s.votes += 1;
+        s.on = true;
+        voted = true;
+        document.getElementById("voteThanks").textContent = "Vote in for " + s.title + ". Tallies stay live until the host calls it.";
+        renderVotes();
+      });
+      voteRoot.appendChild(btn);
+    });
+  }
+  renderVotes();
+
+  const pickRoot = document.getElementById("songPicks");
+  let picked = "";
+  picks.forEach((title) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.innerHTML = "<span style='grid-column:1/-1'>" + title + "</span>";
+    btn.addEventListener("click", () => {
+      picked = title;
+      document.getElementById("songType").value = "";
+      pickRoot.querySelectorAll("button").forEach((b) => b.classList.toggle("on", b === btn));
+    });
+    pickRoot.appendChild(btn);
+  });
+
+  document.getElementById("reqBtn").addEventListener("click", () => {
+    const typed = document.getElementById("songType").value.trim();
+    const song = typed || picked;
+    const thanks = document.getElementById("reqThanks");
+    if (!song) {
+      thanks.textContent = "Pick or type a song first.";
+      return;
+    }
+    thanks.textContent = "Queued (mock): “" + song + "” — 7 requests ahead, we'll try. $5 is not actually charged.";
+  });
+
+  document.querySelectorAll(".tabs button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tabs button").forEach((b) => b.classList.toggle("on", b === btn));
+      document.querySelectorAll(".pane").forEach((p) => p.classList.toggle("on", p.id === "pane-" + btn.dataset.tab));
+      const url = new URL(location.href);
+      url.searchParams.set("tab", btn.dataset.tab);
+      history.replaceState(null, "", url);
+    });
+  });
+
+  const tab = new URLSearchParams(location.search).get("tab");
+  if (tab === "request") document.getElementById("tab-request").click();
+})();
+</script>
+</body>
+</html>

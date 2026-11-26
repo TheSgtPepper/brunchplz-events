@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Put your shout-out on the board — BRUNCH, PLEASE! (draft mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-state="compose">
+<div class="phone">
+  <div class="chrome" role="region" aria-label="Mockup controls">
+    <div class="row">
+      <span class="badge">Draft mockup — not live</span>
+      <nav>
+        <a href="index.html" class="on">Guest</a>
+        <a href="staff.html">Staff queue</a>
+        <a href="later.html">Coming later</a>
+      </nav>
+    </div>
+    <div class="toggles">
+      <label>Capacity
+        <select id="capToggle" aria-label="Capacity preview">
+          <option value="open">3 of 6 left</option>
+          <option value="soldout">Sold out today</option>
+        </select>
+      </label>
+      <label>Screen
+        <select id="stateToggle" aria-label="Guest screen preview">
+          <option value="compose">Compose</option>
+          <option value="pending">Pending approval</option>
+          <option value="upnext">You're up around 11:40</option>
+          <option value="rejected">Not approved — refunded</option>
+        </select>
+      </label>
+    </div>
+    <p class="hint">Preview controls only. Pricing and rules are draft, pending Alex's approval. No real payments.</p>
+  </div>
+
+  <section id="compose">
+    <header class="hero">
+      <p class="logo">Brunch, Please!</p>
+      <p class="cap" id="capPill"><i></i> 3 of 6 left today</p>
+      <h1>Put your <em>shout-out</em> on the board</h1>
+      <p>Type it, watch the flaps, and we'll run it during brunch — if the floor lead says yes.</p>
+    </header>
+
+    <div class="panel">
+      <p class="kicker">Live preview · 4 × 15</p>
+      <div class="board-wrap">
+        <div id="board" class="sf-board" aria-label="Live 4 by 15 split-flap preview"></div>
+      </div>
+      <p class="fine" id="boardHint" style="text-align:left;margin-top:8px">Your words land here. Words wrap by row, not in the middle of a word if we can help it.</p>
+
+      <label class="field" for="msg">Your shout-out <span class="counter" id="count">0 / 60</span></label>
+      <textarea id="msg" class="msg-input" maxlength="60" rows="3" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="HAPPY BDAY JESS!"></textarea>
+      <div class="warn-box" id="warn" role="status"></div>
+
+      <div class="two">
+        <div>
+          <label class="field" for="from">From <span class="sublabel">(optional, first name)</span></label>
+          <input type="text" id="from" maxlength="20" placeholder="Jess" autocomplete="off">
+        </div>
+        <div>
+          <label class="field" for="table">Table</label>
+          <input type="tel" id="table" maxlength="4" inputmode="numeric" placeholder="12" autocomplete="off">
+        </div>
+      </div>
+
+      <p class="field" style="margin-bottom:6px">Pick a style</p>
+      <p class="draft-note">Draft — pending Alex's approval</p>
+      <div class="tiers" role="radiogroup" aria-label="Price tier">
+        <label class="tier on">
+          <input type="radio" name="tier" value="10" checked>
+          <div>
+            <p class="price">$10</p>
+            <b>Standard</b>
+            <p>Next open slot. About 3 minutes on the board.</p>
+          </div>
+        </label>
+        <label class="tier">
+          <input type="radio" name="tier" value="20">
+          <div>
+            <p class="price">$20</p>
+            <b>Spotlight</b>
+            <p>You name the moment (like cake time). Host gives a mic call-out. 5 minutes on the board.</p>
+            <div class="moment" id="momentBox">
+              <label class="field" for="moment" style="margin-top:10px">When should it go up?</label>
+              <input type="text" id="moment" maxlength="40" placeholder="During the cake" autocomplete="off">
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div class="rules">
+        <span class="draft-note">Draft house rules — pending Alex's approval</span>
+        <p style="margin:0">Every message is reviewed by staff before it goes up. Keep it fun and kind. No profanity or slurs, no explicit content, no mean roasts, no last names, no phone numbers or social handles, no ads, no politics. Cheeky fun is fine. Not approved = refunded in full. Once it's run, it isn't refundable.</p>
+      </div>
+
+      <p class="kicker">Pay &amp; submit</p>
+      <div class="pay">
+        <div class="pay-btns">
+          <button type="button" class="btn btn-apple" data-pay="apple"> Pay with Apple Pay</button>
+          <button type="button" class="btn btn-google" data-pay="google"> Pay with Google Pay</button>
+          <button type="button" class="btn btn-card" data-pay="card">Pay with card</button>
+        </div>
+        <p class="fine">Fake buttons only — no payment is taken. Processor (Square or Stripe) is still open.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="soldout">
+    <p class="logo" style="color:var(--pink);margin-top:8px">Brunch, Please!</p>
+    <p class="cap sold"><i></i> Sold out today</p>
+    <h2>All 6 shout-outs are spoken for.</h2>
+    <p>This brunch's board is full. Grab a ticket for the next one and try again there.</p>
+    <a class="btn" href="https://www.brunchplz.com/" target="_blank" rel="noopener noreferrer">Next brunch · Sat, Nov 28 →</a>
+    <p class="fine">Draft cap of 6 paid shout-outs per brunch — pending Alex's approval.</p>
+  </section>
+
+  <section class="status" id="status-pending">
+    <p class="big-tag">Pending approval</p>
+    <h2>You're in the queue! #4</h2>
+    <p>A host is reviewing this now. We aim to get back to you within a couple of minutes. We'll flash it soon if it's a yes.</p>
+    <div class="board-wrap" style="text-align:left;margin:18px 0">
+      <div id="board-pending" class="sf-board is-compact"></div>
+    </div>
+    <p class="fine">If it's not approved, you'll get an automatic full refund to the original payment.</p>
+  </section>
+
+  <section class="status upnext" id="status-upnext">
+    <p class="big-tag">Approved</p>
+    <h2>You're up around</h2>
+    <p class="time">11:40</p>
+    <p>Your shout-out is locked in. Keep an eye on the board — and on the host if you booked Spotlight.</p>
+    <div class="board-wrap" style="text-align:left;margin:18px 0">
+      <div id="board-upnext" class="sf-board is-compact"></div>
+    </div>
+  </section>
+
+  <section class="status rejected" id="status-rejected">
+    <p class="big-tag">Not approved — refunded</p>
+    <h2>This one didn't go up.</h2>
+    <p>No hard feelings. The full amount was sent back to the original payment automatically.</p>
+    <p class="fine">Approved messages that have already run aren't refundable.</p>
+  </section>
+
+  <footer class="fineprint">BRUNCH, PLEASE! at Bucci's · 320 W. Center St., Marion, OH · Draft mockup, not a live checkout</footer>
+</div>
+
+<script src="flap.js"></script>
+<script>
+(function () {
+  const board = document.getElementById("board");
+  SplitFlap.mount(board);
+  const pendingBoard = document.getElementById("board-pending");
+  const upnextBoard = document.getElementById("board-upnext");
+  SplitFlap.mount(pendingBoard, { compact: true, animate: false });
+  SplitFlap.mount(upnextBoard, { compact: true, animate: false });
+
+  const msg = document.getElementById("msg");
+  const count = document.getElementById("count");
+  const warn = document.getElementById("warn");
+  const capToggle = document.getElementById("capToggle");
+  const stateToggle = document.getElementById("stateToggle");
+  const momentBox = document.getElementById("momentBox");
+  const moment = document.getElementById("moment");
+  const capPill = document.getElementById("capPill");
+
+  const SAMPLE = "HAPPY BDAY JESS!";
+
+  function previewText() {
+    return SplitFlap.sanitize(msg.value);
+  }
+
+  function updateBoard(animate) {
+    const raw = previewText();
+    if (raw !== msg.value) {
+      const pos = msg.selectionStart;
+      msg.value = raw;
+      try { msg.setSelectionRange(pos, pos); } catch (e) {}
+    }
+    const laid = SplitFlap.layout(raw);
+    SplitFlap.set(board, laid, { animate: animate !== false });
+    count.textContent = raw.length + " / 60";
+    count.classList.toggle("warn", raw.length >= 55);
+    const notes = [];
+    if (laid.splitWord) notes.push("One of those words is longer than a row, so it had to break mid-word.");
+    if (laid.overflow) notes.push("That's more than 4 rows. Trim a little so it all fits on the board.");
+    warn.textContent = notes.join(" ");
+    warn.classList.toggle("show", notes.length > 0);
+    SplitFlap.set(pendingBoard, laid, { animate: false });
+    SplitFlap.set(upnextBoard, laid, { animate: false });
+    return laid;
+  }
+
+  function setState(state) {
+    const cap = capToggle.value;
+    if (cap === "soldout" && (state === "compose" || state === "soldout")) {
+      state = "soldout";
+    } else if (cap === "open" && state === "soldout") {
+      state = "compose";
+    }
+    document.body.dataset.state = state;
+    if (state === "soldout") {
+      capToggle.value = "soldout";
+      stateToggle.value = "compose";
+      capPill.classList.add("sold");
+      capPill.innerHTML = "<i></i> Sold out today";
+    } else {
+      if (cap === "open") capToggle.value = "open";
+      capPill.classList.remove("sold");
+      capPill.innerHTML = "<i></i> 3 of 6 left today";
+      if (state !== "compose") stateToggle.value = state;
+      else stateToggle.value = "compose";
+    }
+    const url = new URL(location.href);
+    if (state === "compose" && cap === "open") {
+      url.searchParams.delete("state");
+      url.searchParams.delete("cap");
+    } else {
+      url.searchParams.set("state", state);
+      url.searchParams.set("cap", capToggle.value);
+    }
+    history.replaceState(null, "", url);
+  }
+
+  msg.addEventListener("input", () => updateBoard(true));
+  capToggle.addEventListener("change", () => {
+    setState(capToggle.value === "soldout" ? "soldout" : "compose");
+  });
+  stateToggle.addEventListener("change", () => {
+    if (stateToggle.value !== "compose") capToggle.value = "open";
+    setState(stateToggle.value);
+  });
+
+  document.querySelectorAll('input[name="tier"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      document.querySelectorAll(".tier").forEach((t) => t.classList.toggle("on", t.querySelector("input").checked));
+      momentBox.classList.toggle("show", document.querySelector('input[name="tier"]:checked').value === "20");
+    });
+  });
+
+  function submitFake() {
+    const laid = updateBoard(false);
+    if (!previewText().trim()) {
+      warn.textContent = "Type a shout-out first.";
+      warn.classList.add("show");
+      msg.focus();
+      return;
+    }
+    if (laid.overflow) {
+      warn.textContent = "Trim it so the whole message fits, then try again.";
+      warn.classList.add("show");
+      return;
+    }
+    const tier = document.querySelector('input[name="tier"]:checked').value;
+    if (tier === "20" && !moment.value.trim()) {
+      momentBox.classList.add("show");
+      moment.focus();
+      warn.textContent = "Spotlight needs a moment, like “during the cake.”";
+      warn.classList.add("show");
+      return;
+    }
+    capToggle.value = "open";
+    setState("pending");
+  }
+
+  document.querySelectorAll("[data-pay]").forEach((btn) => {
+    btn.addEventListener("click", submitFake);
+  });
+
+  const params = new URLSearchParams(location.search);
+  if (params.get("demo") !== "empty") {
+    msg.value = SAMPLE;
+    document.getElementById("from").value = "Jess";
+    document.getElementById("table").value = "12";
+  }
+  updateBoard(false);
+
+  const startState = params.get("state") || "compose";
+  const startCap = params.get("cap") || "open";
+  capToggle.value = startCap === "soldout" ? "soldout" : "open";
+  if (startCap === "soldout") setState("soldout");
+  else setState(startState);
+})();
+</script>
+</body>
+</html>
