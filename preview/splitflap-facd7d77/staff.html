@@ -21,7 +21,7 @@
         <a href="later.html">Coming later</a>
       </nav>
     </div>
-    <p class="hint">Live rotation view. Messages auto-join after the filter. Nothing here is a real order or payment.</p>
+    <p class="hint">Live rotation view. Messages go straight into the rotation. Nothing here is a real order or payment.</p>
   </div>
 
   <header class="staff-head">
@@ -30,7 +30,6 @@
     <p>Saturday brunch · Sat, Nov 28</p>
     <div class="stat-row">
       <span class="stat" id="capStat">3 of 6 paid left</span>
-      <span class="stat filter">Blocked by filter today: 1 (auto-refunded)</span>
     </div>
     <p class="draft-note" style="margin-top:10px">Draft — pending Alex's approval</p>
   </header>
@@ -45,7 +44,7 @@
     </div>
   </section>
 
-  <p class="pull-note">Pulled messages are refunded. Draft — pending Alex's confirmation.</p>
+  <p class="pull-note">Pulled messages are refunded.</p>
 
   <section class="slot">
     <h2>Up next</h2>
@@ -189,7 +188,7 @@
     if (item.paid && paidLeft < paidCap) paidLeft += 1;
     toast(item.house
       ? "House message pulled."
-      : "Pulled. Refund is marked as draft — pending Alex's confirmation.");
+      : "Pulled. The guest is refunded.");
     renderAll();
   }
 

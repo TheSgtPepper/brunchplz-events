@@ -32,7 +32,6 @@
         <select id="stateToggle" aria-label="Guest screen preview">
           <option value="compose">Compose</option>
           <option value="upnext">You're in the rotation</option>
-          <option value="blocked">Filter blocked — refunded</option>
         </select>
       </label>
     </div>
@@ -56,6 +55,7 @@
 
       <label class="field" for="msg">Your shout-out <span class="counter" id="count">0 / 60</span></label>
       <textarea id="msg" class="msg-input" maxlength="60" rows="3" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="HAPPY BDAY JESS!"></textarea>
+      <p class="charset-hint">First names only — no last names, phone numbers or handles.</p>
       <p class="charset-hint">Letters, numbers, and ! ? . , ' - &amp; # @ : $ only. Other characters are blocked as you type. The seller's exact set is still to be confirmed.</p>
       <div class="warn-box" id="blocked" role="status">That character isn't on the board, so it wasn't added.</div>
       <div class="warn-box" id="warn" role="status"></div>
@@ -101,7 +101,7 @@
 
       <div class="rules">
         <span class="draft-note">Draft house rules — pending Alex's approval</span>
-        <p style="margin:0">Messages go up automatically. Our filter blocks profanity, last names, phone numbers and handles. Blocked = refunded. Cheeky fun is fine. Once it's run, it isn't refundable.</p>
+        <p style="margin:0">Messages go up automatically. Keep it fun and kind. No last names, phone numbers or handles. Staff can pull a message, and pulled messages are refunded. Once it's run, it isn't refundable.</p>
       </div>
 
       <p class="kicker">Pay &amp; submit</p>
@@ -136,12 +136,6 @@
     </div>
   </section>
 
-  <section class="status rejected" id="status-blocked">
-    <p class="big-tag">Filter blocked this message — refunded</p>
-    <h2>This one didn't go up.</h2>
-    <p>Our filter caught something in the message. The full amount was sent back to the original payment automatically.</p>
-    <p class="fine">Messages that have already run aren't refundable.</p>
-  </section>
 
   <footer class="fineprint">BRUNCH, PLEASE! at Bucci's · 320 W. Center St., Marion, OH · Draft mockup, not a live checkout</footer>
 </div>
@@ -206,8 +200,7 @@
   }
 
   function setState(state) {
-    if (state === "pending") state = "upnext";
-    if (state === "rejected") state = "blocked";
+    if (["pending", "rejected", "blocked"].indexOf(state) !== -1) state = "upnext";
     const cap = capToggle.value;
     if (cap === "soldout" && (state === "compose" || state === "soldout")) {
       state = "soldout";

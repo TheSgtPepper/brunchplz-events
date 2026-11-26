@@ -470,8 +470,6 @@ textarea:focus, input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px r
 body[data-state="compose"] #compose { display: block; }
 body[data-state="soldout"] #soldout { display: block; }
 body[data-state="upnext"] #status-upnext { display: block; }
-body[data-state="blocked"] #status-blocked,
-body[data-state="rejected"] #status-blocked { display: block; }
 
 #soldout { padding: 28px 20px 48px; text-align: center; }
 #soldout h2 {
