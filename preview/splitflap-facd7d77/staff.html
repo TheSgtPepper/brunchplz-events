@@ -27,7 +27,8 @@
   <header class="staff-head">
     <p class="logo">Brunch, Please!</p>
     <h1>Board queue</h1>
-    <p>Saturday brunch · Floor lead · Aim for 2 minutes. Hold (never auto-approve) at 5.</p>
+    <p>Saturday brunch · Sat, Nov 28 · Aim for 2 minutes. Hold (never auto-approve) at 5.</p>
+    <p class="approver">Approver: Floor lead (backup: Casey)</p>
     <p class="draft-note" style="margin-top:10px">Draft — pending Alex's approval</p>
   </header>
 
@@ -41,6 +42,15 @@
   <section class="slot">
     <h2>Up next</h2>
     <div id="upNext"></div>
+  </section>
+
+  <section class="slot house-box">
+    <h2>House message</h2>
+    <p class="meta">Staff-only, tagged HOUSE. Does not count toward the 6 paid shout-outs.</p>
+    <label class="field" for="houseMsg" style="margin-top:8px">Compose a house line</label>
+    <textarea id="houseMsg" class="msg-input" maxlength="60" rows="2">MIMOSA TOWER $35 10 LEFT</textarea>
+    <div class="board-wrap" style="margin-top:8px"><div id="houseBoard" class="sf-board is-compact"></div></div>
+    <button type="button" class="btn btn-card" id="houseQueue">Queue house message</button>
   </section>
 
   <section class="queue">
@@ -72,14 +82,16 @@
   const started = Date.now();
 
   const pendingSeed = [
+    { id: "p0", text: "LET US GO TABLE 4", from: "Riley", table: "4", amount: 10, tier: "Standard", note: "", age: 18, filtered: true },
     { id: "p1", text: "HAPPY BDAY JESS!", from: "Jess", table: "12", amount: 20, tier: "Spotlight", note: "During the cake", age: 48 },
     { id: "p2", text: "WE ARE SO BACK", from: "", table: "4", amount: 10, tier: "Standard", note: "", age: 111 },
     { id: "p3", text: "SING IT LOUDER", from: "", table: "9", amount: 10, tier: "Standard", note: "", age: 261 },
     { id: "p4", text: "LOVE YOU MOM", from: "Sam", table: "2", amount: 10, tier: "Standard", note: "", age: 318 }
   ];
   const upSeed = [
-    { id: "u1", text: "CHEERS FROM T8", table: "8", amount: 10, tier: "Standard" },
-    { id: "u2", text: "HAPPY ANNIVERSARY", table: "11", amount: 20, tier: "Spotlight", note: "Right after this song" }
+    { id: "h1", text: "MIMOSA TOWER $35 10 LEFT", house: true },
+    { id: "u1", text: "CHEERS FROM T8", from: "Chris", table: "8", amount: 10, tier: "Standard" },
+    { id: "u2", text: "HAPPY ANNIVERSARY", from: "Sam", table: "11", amount: 20, tier: "Spotlight", note: "Right after this song" }
   ];
 
   let pending = pendingSeed.map((x) => ({ ...x }));
@@ -88,6 +100,25 @@
 
   SplitFlap.mount(document.getElementById("nowBoard"), { compact: true, animate: false });
   SplitFlap.set(document.getElementById("nowBoard"), "WELCOME TABLE 7", { animate: false });
+  const houseBoard = document.getElementById("houseBoard");
+  const houseMsg = document.getElementById("houseMsg");
+  SplitFlap.mount(houseBoard, { compact: true, animate: false });
+  function syncHouse() {
+    const laid = SplitFlap.layout(houseMsg.value);
+    if (laid.text !== houseMsg.value) houseMsg.value = laid.text;
+    SplitFlap.set(houseBoard, laid, { animate: false });
+    return laid;
+  }
+  houseMsg.addEventListener("input", syncHouse);
+  syncHouse();
+  document.getElementById("houseQueue").addEventListener("click", () => {
+    const laid = syncHouse();
+    if (!laid.text.trim()) { toast("Type a house message first."); return; }
+    if (laid.overflow) { toast("Trim it so it fits 4 × 15."); return; }
+    upNext.push({ id: "h" + Date.now(), text: laid.text, house: true });
+    toast("House message queued. It does not count toward the 6 paid slots.");
+    renderAll();
+  });
 
   function fmt(sec) {
     sec = Math.max(0, Math.floor(sec));
@@ -122,12 +153,20 @@
       root.innerHTML = "<p class='meta'>Nothing queued yet.</p>";
       return;
     }
-    root.innerHTML = upNext.map((item, i) => (
-      '<div class="up-item"><span class="num">' + (i + 1) + '</span><div>' +
-      "<b>" + item.text + "</b>" +
-      "<span class='meta'>Table " + item.table + " · " + item.tier + " $" + item.amount +
-      (item.note ? " · " + item.note : "") + "</span></div></div>"
-    )).join("");
+    root.innerHTML = upNext.map((item, i) => {
+      let meta;
+      if (item.house) {
+        meta = '<span class="tag house">House</span> <span class="meta">Does not count toward the 6 paid slots</span>';
+      } else {
+        meta = "<span class='meta'>" +
+          (item.from ? "From " + item.from + " · " : "") +
+          (item.table ? "Table " + item.table + " · " : "") +
+          item.tier + " $" + item.amount +
+          (item.note ? " · " + item.note : "") + "</span>";
+      }
+      return '<div class="up-item"><span class="num">' + (i + 1) + '</span><div>' +
+        "<b>" + item.text + "</b>" + meta + "</div></div>";
+    }).join("");
   }
 
   function renderPending() {
@@ -141,10 +180,17 @@
       const age = currentAge(item);
       const card = document.createElement("article");
       card.className = "card " + ageClass(age);
+      const filterBadge = item.filtered
+        ? '<div class="tag filter">Filtered by profanity filter</div>'
+        : "";
+      const who = (item.from ? "From " + item.from : "") +
+        (item.from && item.table ? " · " : "") +
+        (item.table ? "Table " + item.table : "");
       card.innerHTML =
         '<div class="top"><div class="age ' + ageClass(age) + '">' + ageLabel(age) + "</div>" +
+        filterBadge +
         '<div class="board-wrap"><div class="mini"></div></div></div>' +
-        '<p class="meta">Table ' + item.table + (item.from ? " · From " + item.from : "") +
+        '<p class="meta">' + who +
         " · $" + item.amount + " " + item.tier + (item.note ? " · “" + item.note + "”" : "") + "</p>" +
         '<div class="actions">' +
         '<button type="button" class="go" data-act="approve">Approve</button>' +

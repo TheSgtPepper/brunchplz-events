@@ -1,6 +1,12 @@
 # Split-flap shout-out board — open questions
 
-Draft mockup only. Nothing is live, no payment is set up, and nothing has been spent. Values below come from Brunch Ops (Nov 25, 2026) and are **pending Alex's approval**. The mockup is labeled that way throughout.
+Draft mockup only. Nothing is live, no payment is set up, and nothing has been spent. Values below come from Brunch Ops (Nov 25, 2026) and are **pending Alex's approval** unless marked decided. The mockup is labeled that way throughout.
+
+**Alex's decisions (Nov 25, 2026, 9:04 PM ET, relayed by Big Dawg):**
+- Payment processor: **Square** (online checkout or payment links, Apple Pay and Google Pay, refunds through Square). Not Stripe.
+- Approvals: **whoever runs the floor that brunch**, with **Casey as backup**.
+- Cap: start at **6 shout-outs per brunch**; **raise the price before adding slots**.
+- Character set: **TBD**. Alex is asking the seller for the flap character list.
 
 ## Pricing and time on the board
 
@@ -20,11 +26,10 @@ Open questions for Alex / Brunch Ops:
 
 ## Daily cap
 
-Draft cap: **6 paid shout-outs per brunch**, with a live counter (“3 of 6 left”) and a **Sold out today** state that points people at the next brunch (mockup links to [brunchplz.com](https://www.brunchplz.com/) and uses Sat, Nov 28 as the example next date).
+**Decided:** cap of **6 paid shout-outs per brunch** to start; when demand outgrows it, raise the price before adding slots. Live counter (“3 of 6 left”) sits next to the brunch date (mockup uses a fake **Sat, Nov 28 brunch**). The **Sold out today** state points people at the next brunch (mockup: Sun, Nov 29, linking to [brunchplz.com](https://www.brunchplz.com/)). House messages do **not** count toward the 6.
 
 Open questions:
 
-- Confirm the cap of 6.
 - Do unused slots roll, or is it simply “once 6 have been sold, that’s it”?
 - Should Spotlight count as one of the six, or use a separate smaller cap?
 - With a 10 AM–2 PM brunch, 6 messages at 3–5 minutes is only 18–30 minutes of paid board time. Is the rest of the time an idle brand frame (e.g. `BRUNCH, PLEASE!`), house messages, or coming-later vote mode?
@@ -34,7 +39,7 @@ Open questions:
 Draft flow:
 
 1. A **profanity / content filter** runs first.
-2. The **floor lead** approves, edits, or rejects from a **phone queue**, aiming for **2 minutes**.
+2. **Whoever runs the floor that brunch** (decided; **Casey is backup**) approves, edits, or rejects from a **phone queue**, aiming for **2 minutes**.
 3. Anything still waiting at **5 minutes** is **held**, never auto-approved.
 
 Draft guest rules (on the mockup):
@@ -85,20 +90,17 @@ Open questions:
 
 ## Payment processor
 
-Do **not** set anything up yet. The mockup only shows generic, fake **Apple Pay**, **Google Pay**, and **card** buttons.
+**Decided: Square.** The mockup shows fake Apple Pay, Google Pay, and card buttons with a “Secure checkout by Square” line. Use Square online checkout or Square payment links, with Apple Pay and Google Pay, and issue refunds (rejected or held-and-expired messages) through Square. **Not Stripe.** Nothing is set up yet; this stays a draft until Alex says go. No Square keys or live integration are in the mockup.
 
-Options to discuss with Alex (no recommendation locked in):
+How a Square payment would feed the queue (plan only): a successful Square `payment.updated` / checkout completed webhook creates the shout-out row in `pending_filter`, then `pending_staff`. The receipt goes to the guest’s phone or email (stored only for the receipt and refunds — never shown on the board or in the staff queue). If the floor lead rejects the message, or it is held and expires, a Square refund API call sends the full amount back to the original payment and the guest status becomes “Not approved — refunded.” If the webhook never arrives, do not queue a message and do not light the board.
 
-- **Square** — already familiar in restaurants; hardware and staff may already know it at Bucci’s. Online checkout and Apple/Google Pay are available. Settlement sits next to food-and-drink payments, which may or may not be desirable.
-- **Stripe** — common for a custom web checkout (Payment Links, Checkout, or Payment Element) with Apple Pay / Google Pay, easy automatic refunds, and a clean split from in-house dining payments.
-
-Other context: tickets already go through **Ticket Tailor**. Using it for $10–$20 add-ons would be a third option, but it is a weaker fit for a 60-character form, a staff approval queue, and automatic refunds.
+Tickets still go through **Ticket Tailor**, which stays separate from shout-out purchases.
 
 ## Character set
 
-The mockup allows: **A–Z, 0–9, space, and `! ? . , ' - & # @ :`**. Input is forced to uppercase. 60 characters total, including spaces, on a **4 × 15** grid. Words wrap by row and are not split mid-word when it can be avoided.
+The mockup allows: **A–Z, 0–9, space, and `! ? . , ' - & # @ : $`**. Input is forced to uppercase. Unsupported characters are **blocked as the guest types** (they never land in the field); a short note explains that the character is not on the board. 60 characters total, including spaces, on a **4 × 15** grid. Words wrap by row and are not split mid-word when it can be avoided. `$` is included as a draft character so house lines like `MIMOSA TOWER $35 10 LEFT` can be typed; drop it if the seller’s flaps do not have a dollar sign.
 
-**The actual character set still needs confirming with the seller** before we lock the input filter. Split-flap modules vary: some omit `@`, `#`, `&`, or the apostrophe; some use a different punctuation set. Once we have the vendor’s list, the guest field, the staff edit field, and the API mapper should all use that same list, and unknown characters should be rejected (or mapped) before anything is sent to the sign.
+**Character set: TBD.** Alex is asking the seller for the flap character list. The list above is a placeholder, and it **still needs confirming with the seller** before we lock the input filter. Split-flap modules vary: some omit `@`, `#`, `&`, or the apostrophe; some use a different punctuation set. Once we have the vendor’s list, the guest field, the staff edit field, and the API mapper should all use that same list, and unknown characters should be rejected (or mapped) before anything is sent to the sign.
 
 ## How the sign could be fed from the approval queue
 
@@ -114,10 +116,38 @@ Brief technical note, vendor-agnostic, since the open-source, app-controlled sig
 
 Until the seller is chosen, this stays a plan, not a build.
 
+## Guest details
+
+The guest form now collects:
+
+- **First name** — shown to staff as the “From” name only. No last names.
+- **Table #** — optional.
+- **Phone or email for your receipt** — with the note: “Only used for your receipt. Never shown on the board.”
+
+The staff queue shows first name and table only. Contact info is not displayed there, even in this mockup’s sample data.
+
+Open questions:
+
+- Is first name required to submit, or optional?
+- Is a receipt contact required for Square checkout, or can a guest skip it?
+
+## House messages
+
+Staff can compose and queue **house messages** (example: `MIMOSA TOWER $35 10 LEFT`), tagged **HOUSE**. They do not count toward the 6 paid shout-outs. Use them for specials, wayfinding, or idle-board lines when no paid message is running.
+
+Open questions:
+
+- Who may send a house message — floor lead only, or any host?
+- How long does a house message stay up, and can a paid Spotlight bump it?
+
+## Profanity filter in the queue
+
+The staff mockup includes one sample item marked **Filtered by profanity filter**, so the floor lead can see an auto-flag before approving, editing, or rejecting. The sample text is already a clean stand-in; no profanity is displayed.
+
 ## What’s in this folder
 
 - `index.html` — guest QR order page, including sold-out and status screens (use the preview controls, or `?state=pending|upnext|rejected` and `?cap=soldout`).
-- `staff.html` — floor-lead approval queue with Now showing, Up next, and pending cards. Sample data only (e.g. “HAPPY BDAY JESS!” from Table 12).
+- `staff.html` — floor-lead approval queue (Approver: Floor lead, backup: Casey) with Now showing, Up next, a House message composer, and pending cards (including a filtered-by-filter sample). Sample data only (e.g. “HAPPY BDAY JESS!” from Table 12). No receipt contact is shown.
 - `later.html` — light “Coming later” sketches for A/B/C/D song voting and a $5 song request.
 - `styles.css`, `flap.js` — shared look and the 4 × 15 flap preview.
 - `screenshots/` — 390px-wide PNGs of each screen.

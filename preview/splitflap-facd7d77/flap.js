@@ -2,20 +2,33 @@
 (function (global) {
   const COLS = 15;
   const ROWS = 4;
-  const ALLOWED = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !?.,'-&#@:";
+  const ALLOWED = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 !?.,'-&#@:$";
   const ALLOWED_SET = new Set(ALLOWED.split(""));
 
-  function sanitize(raw) {
-    const typo = String(raw || "")
+  function normalize(raw) {
+    return String(raw || "")
       .replace(/[\u2018\u2019]/g, "'")
       .replace(/[\u2013\u2014]/g, "-")
       .toUpperCase();
+  }
+
+  function sanitizeDetail(raw) {
+    const typo = normalize(raw);
     let out = "";
+    let blocked = false;
     for (const ch of typo) {
-      if (ALLOWED_SET.has(ch)) out += ch;
-      if (out.length >= 60) break;
+      if (ALLOWED_SET.has(ch)) {
+        if (out.length < 60) out += ch;
+        else blocked = true;
+      } else {
+        blocked = true;
+      }
     }
-    return out;
+    return { text: out, blocked };
+  }
+
+  function sanitize(raw) {
+    return sanitizeDetail(raw).text;
   }
 
   function wrapLines(text) {
@@ -216,6 +229,8 @@
     ROWS,
     ALLOWED,
     sanitize,
+    sanitizeDetail,
+    normalize,
     layout,
     mount,
     set: setBoard,

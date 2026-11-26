@@ -43,7 +43,7 @@
   <section id="compose">
     <header class="hero">
       <p class="logo">Brunch, Please!</p>
-      <p class="cap" id="capPill"><i></i> 3 of 6 left today</p>
+      <p class="cap" id="capPill"><i></i> 3 of 6 left <span class="cap-date">Sat, Nov 28 brunch</span></p>
       <h1>Put your <em>shout-out</em> on the board</h1>
       <p>Type it, watch the flaps, and we'll run it during brunch — if the floor lead says yes.</p>
     </header>
@@ -57,18 +57,23 @@
 
       <label class="field" for="msg">Your shout-out <span class="counter" id="count">0 / 60</span></label>
       <textarea id="msg" class="msg-input" maxlength="60" rows="3" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="HAPPY BDAY JESS!"></textarea>
+      <p class="charset-hint">Letters, numbers, and ! ? . , ' - &amp; # @ : $ only. Other characters are blocked as you type. The seller's exact set is still to be confirmed.</p>
+      <div class="warn-box" id="blocked" role="status">That character isn't on the board, so it wasn't added.</div>
       <div class="warn-box" id="warn" role="status"></div>
 
       <div class="two">
         <div>
-          <label class="field" for="from">From <span class="sublabel">(optional, first name)</span></label>
-          <input type="text" id="from" maxlength="20" placeholder="Jess" autocomplete="off">
+          <label class="field" for="from">First name <span class="sublabel">(shown as From only)</span></label>
+          <input type="text" id="from" maxlength="20" placeholder="Jess" autocomplete="given-name" autocapitalize="words">
         </div>
         <div>
-          <label class="field" for="table">Table</label>
+          <label class="field" for="table">Table # <span class="sublabel">(optional)</span></label>
           <input type="tel" id="table" maxlength="4" inputmode="numeric" placeholder="12" autocomplete="off">
         </div>
       </div>
+      <label class="field" for="contact">Phone or email for your receipt</label>
+      <input type="text" id="contact" class="contact-input" maxlength="80" inputmode="email" placeholder="phone or email" autocomplete="off">
+      <p class="privacy-note">Only used for your receipt. Never shown on the board.</p>
 
       <p class="field" style="margin-bottom:6px">Pick a style</p>
       <p class="draft-note">Draft — pending Alex's approval</p>
@@ -88,7 +93,7 @@
             <b>Spotlight</b>
             <p>You name the moment (like cake time). Host gives a mic call-out. 5 minutes on the board.</p>
             <div class="moment" id="momentBox">
-              <label class="field" for="moment" style="margin-top:10px">When should it go up?</label>
+              <label class="field" for="moment" style="margin-top:10px">Pick your moment</label>
               <input type="text" id="moment" maxlength="40" placeholder="During the cake" autocomplete="off">
             </div>
           </div>
@@ -107,18 +112,19 @@
           <button type="button" class="btn btn-google" data-pay="google"> Pay with Google Pay</button>
           <button type="button" class="btn btn-card" data-pay="card">Pay with card</button>
         </div>
-        <p class="fine">Fake buttons only — no payment is taken. Processor (Square or Stripe) is still open.</p>
+                <p class="fine square-line">Secure checkout by Square</p>
+        <p class="fine">Fake buttons only — no payment is taken.</p>
       </div>
     </div>
   </section>
 
   <section id="soldout">
     <p class="logo" style="color:var(--pink);margin-top:8px">Brunch, Please!</p>
-    <p class="cap sold"><i></i> Sold out today</p>
+    <p class="cap sold"><i></i> Sold out today <span class="cap-date">Sat, Nov 28 brunch</span></p>
     <h2>All 6 shout-outs are spoken for.</h2>
     <p>This brunch's board is full. Grab a ticket for the next one and try again there.</p>
-    <a class="btn" href="https://www.brunchplz.com/" target="_blank" rel="noopener noreferrer">Next brunch · Sat, Nov 28 →</a>
-    <p class="fine">Draft cap of 6 paid shout-outs per brunch — pending Alex's approval.</p>
+    <a class="btn" href="https://www.brunchplz.com/" target="_blank" rel="noopener noreferrer">Next brunch · Sun, Nov 29 →</a>
+    <p class="fine">Cap: 6 paid shout-outs per brunch (decided). Draft only.</p>
   </section>
 
   <section class="status" id="status-pending">
@@ -172,17 +178,33 @@
 
   const SAMPLE = "HAPPY BDAY JESS!";
 
+  const blockedBox = document.getElementById("blocked");
+  let blockedTimer = null;
+  function flashBlocked() {
+    blockedBox.classList.add("show");
+    clearTimeout(blockedTimer);
+    blockedTimer = setTimeout(() => blockedBox.classList.remove("show"), 2200);
+  }
+
   function previewText() {
     return SplitFlap.sanitize(msg.value);
   }
 
-  function updateBoard(animate) {
-    const raw = previewText();
-    if (raw !== msg.value) {
-      const pos = msg.selectionStart;
-      msg.value = raw;
-      try { msg.setSelectionRange(pos, pos); } catch (e) {}
+  function applySanitize(showFlash) {
+    const detail = SplitFlap.sanitizeDetail(msg.value);
+    if (detail.text !== msg.value) {
+      const pos = msg.selectionStart ? msg.selectionStart - (msg.value.length - detail.text.length) : detail.text.length;
+      msg.value = detail.text;
+      try { msg.setSelectionRange(Math.max(0, pos), Math.max(0, pos)); } catch (e) {}
+      if (showFlash && detail.blocked) flashBlocked();
+    } else if (showFlash && detail.blocked) {
+      flashBlocked();
     }
+    return detail.text;
+  }
+
+  function updateBoard(animate, showFlash) {
+    const raw = applySanitize(showFlash);
     const laid = SplitFlap.layout(raw);
     SplitFlap.set(board, laid, { animate: animate !== false });
     count.textContent = raw.length + " / 60";
@@ -209,11 +231,11 @@
       capToggle.value = "soldout";
       stateToggle.value = "compose";
       capPill.classList.add("sold");
-      capPill.innerHTML = "<i></i> Sold out today";
+      capPill.innerHTML = '<i></i> Sold out today <span class="cap-date">Sat, Nov 28 brunch</span>';
     } else {
       if (cap === "open") capToggle.value = "open";
       capPill.classList.remove("sold");
-      capPill.innerHTML = "<i></i> 3 of 6 left today";
+      capPill.innerHTML = '<i></i> 3 of 6 left <span class="cap-date">Sat, Nov 28 brunch</span>';
       if (state !== "compose") stateToggle.value = state;
       else stateToggle.value = "compose";
     }
@@ -228,7 +250,27 @@
     history.replaceState(null, "", url);
   }
 
-  msg.addEventListener("input", () => updateBoard(true));
+  msg.addEventListener("beforeinput", (e) => {
+    if (!e.data) return;
+    const cleaned = SplitFlap.sanitize(e.data);
+    if (cleaned !== SplitFlap.normalize(e.data) || (msg.value.length + cleaned.length > 60 && e.inputType !== "insertFromPaste" && e.inputType !== "insertText")) {
+      if (cleaned !== SplitFlap.normalize(e.data)) {
+        e.preventDefault();
+        flashBlocked();
+        if (cleaned) {
+          const start = msg.selectionStart;
+          const end = msg.selectionEnd;
+          const next = SplitFlap.sanitize((msg.value.slice(0, start) + cleaned + msg.value.slice(end)).slice(0, 60));
+          msg.value = next;
+          const caret = Math.min(start + cleaned.length, next.length);
+          try { msg.setSelectionRange(caret, caret); } catch (err) {}
+          updateBoard(true, false);
+        }
+      }
+    }
+  });
+  msg.addEventListener("input", () => updateBoard(true, true));
+  msg.addEventListener("paste", () => setTimeout(() => updateBoard(true, true), 0));
   capToggle.addEventListener("change", () => {
     setState(capToggle.value === "soldout" ? "soldout" : "compose");
   });
@@ -257,6 +299,20 @@
       warn.classList.add("show");
       return;
     }
+    const first = document.getElementById("from").value.trim();
+    const contact = document.getElementById("contact").value.trim();
+    if (!first) {
+      warn.textContent = "Add a first name — it's shown as From, and never with a last name.";
+      warn.classList.add("show");
+      document.getElementById("from").focus();
+      return;
+    }
+    if (!contact) {
+      warn.textContent = "Add a phone or email for your receipt. It never goes on the board.";
+      warn.classList.add("show");
+      document.getElementById("contact").focus();
+      return;
+    }
     const tier = document.querySelector('input[name="tier"]:checked').value;
     if (tier === "20" && !moment.value.trim()) {
       momentBox.classList.add("show");
@@ -280,6 +336,15 @@
     document.getElementById("table").value = "12";
   }
   updateBoard(false);
+
+  if (params.get("tier") === "20") {
+    const spotlight = document.querySelector('input[name="tier"][value="20"]');
+    if (spotlight) {
+      spotlight.checked = true;
+      spotlight.dispatchEvent(new Event("change", { bubbles: true }));
+      document.getElementById("moment").value = "During the cake";
+    }
+  }
 
   const startState = params.get("state") || "compose";
   const startCap = params.get("cap") || "open";
